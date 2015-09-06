@@ -24,8 +24,8 @@
     var handleId = null;
     var splitters = [];
     var currentSplitter = null;
-    var splitterSize = 6;
-    var splitterHalf = 3;
+    var splitterSize = 0;
+    var splitterHalf = 0;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -46,7 +46,6 @@
             onDrag: $.noop
         }, options || {});
         this.settings = settings;
-        var className;
 
         panelOne = $('<div class="splitter_panel"/>');
         panelOne.append(this.children().first().detach()).prependTo(this);
@@ -332,8 +331,8 @@
                             var y = pageY - offset.top - splitterHalf;
                             if (y <= currentSplitter.limit) {
                                 y = currentSplitter.limit + 1;
-                            } else if (y >= currentSplitter.height() - limit) {
-                                y = currentSplitter.height() - limit - 1;
+                            } else if (y >= currentSplitter.height() - limit - splitterHalf) {
+                                y = currentSplitter.height() - limit - splitterHalf;
                             }
                             if (y > currentSplitter.limit &&
                                 y < currentSplitter.height() - limit) {
@@ -349,8 +348,8 @@
                             var x = pageX - offset.left - splitterHalf;
                             if (x <= currentSplitter.limit) {
                                 x = currentSplitter.limit + 1;
-                            } else if (x >= currentSplitter.width() - limit) {
-                                x = currentSplitter.width() - limit - 1;
+                            } else if (x >= currentSplitter.width() - limit - splitterHalf) {
+                                x = currentSplitter.width() - limit - splitterHalf;
                             }
                             if (x > currentSplitter.limit &&
                                 x < currentSplitter.width() - limit) {
