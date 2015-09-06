@@ -1,0 +1,148 @@
+/*!
+ * jQuery Splitter Plugin
+ * LESS / CSS File
+ * Version 1.0.0
+ *
+ * https://github.com/hiltonjanfield/jquery.splitter
+ *
+ */
+.splitter_container {
+  position: relative;
+  overflow: hidden;
+  /* Using !important to ensure random, generalized styles do not interfere with the layout. */
+  padding: 0 !important;
+  height: 100%;
+  /* Splitter Panels */
+  /* Splitter Bars */
+}
+.splitter_container > .splitter_panel {
+  position: absolute;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+}
+.splitter_container > .splitter_panel > :not(.splitter_container) {
+  overflow: auto;
+  height: 100%;
+}
+.splitter_container.splitter-horizontal > .splitter_panel {
+  left: 0;
+  width: 100%;
+}
+.splitter_container.splitter-horizontal > .splitter_panel:first-child {
+  /* Top panel */
+  top: 0;
+}
+.splitter_container.splitter-horizontal > .splitter_panel ~ .splitter_panel {
+  /* Bottom panel */
+  bottom: 0;
+}
+.splitter_container.splitter-vertical > .splitter_panel {
+  top: 0;
+  height: 100%;
+}
+.splitter_container.splitter-vertical > .splitter_panel:first-child {
+  /* Left panel */
+  left: 0;
+}
+.splitter_container.splitter-vertical > .splitter_panel ~ .splitter_panel {
+  /* Right panel */
+  right: 0;
+}
+.splitter_container > .splitter {
+  background-color: #c0c0c0;
+  position: absolute;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+.splitter_container > .splitter > .splitter_handle {
+  cursor: pointer;
+  background-color: #999999;
+  position: relative;
+  margin: auto;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+.splitter_container > .splitter > .splitter_handle:hover {
+  background-color: #666666;
+  border-color: #666666;
+}
+.splitter_container > .splitter > .splitter_handle:active {
+  background-color: #000000;
+  border-color: #000000;
+}
+.splitter_container > .splitter.splitter-invisible {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.splitter_container > .splitter.splitter-invisible .splitter_handle,
+.splitter_container > .splitter.splitter-handle-none .splitter_handle {
+  display: none;
+}
+.splitter_container.splitter-horizontal > .splitter {
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #666666;
+  cursor: ns-resize;
+  z-index: 800;
+  width: 100%;
+  height: 7px;
+}
+.splitter_container.splitter-horizontal > .splitter .splitter_handle {
+  width: 50px;
+  height: 3px;
+  margin-top: 1px;
+}
+.splitter_container.splitter-horizontal > .splitter.splitter-handle-striped .splitter_handle {
+  height: 2.3333333333333335px;
+  margin-top: 1.4px;
+  border-top: 1.4px solid #999999;
+  border-bottom: 1.4px solid #999999;
+  background-color: transparent;
+}
+.splitter_container.splitter-horizontal > .splitter.splitter-handle-striped .splitter_handle:hover {
+  border-color: #666666;
+}
+.splitter_container.splitter-horizontal > .splitter.splitter-handle-striped .splitter_handle:active {
+  border-color: #000000;
+}
+.splitter_container.splitter-vertical > .splitter {
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #666666;
+  cursor: ew-resize;
+  z-index: 900;
+  width: 7px;
+  height: 100%;
+}
+.splitter_container.splitter-vertical > .splitter .splitter_handle {
+  width: 3px;
+  height: 50px;
+  top: 50%;
+  margin-top: -25px;
+}
+.splitter_container.splitter-vertical > .splitter.splitter-handle-striped .splitter_handle {
+  width: 2.3333333333333335px;
+  border-left: 1.4px solid #999999;
+  border-right: 1.4px solid #999999;
+  background-color: transparent;
+}
+.splitter_container.splitter-vertical > .splitter.splitter-handle-striped .splitter_handle:hover {
+  border-color: #666666;
+}
+.splitter_container.splitter-vertical > .splitter.splitter-handle-striped .splitter_handle:active {
+  border-color: #000000;
+}
+.splitter_container.splitter-active > .splitter .splitter_handle {
+  background-color: #000000;
+}
+.splitter_container.splitter-active > .splitter.splitter-handle-striped .splitter_handle {
+  border-color: #000000;
+}
+.splitterMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}

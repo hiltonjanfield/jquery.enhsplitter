@@ -1,0 +1,411 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery Splitter Demo</title>
+    <meta name="Description" content="jQuery Splitter Demo"/>
+    <link rel="shortcut icon" href=""/>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.splitter.js"></script>
+    <link href="css/jquery.splitter.css" rel="stylesheet"/>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+        body {
+            font: normal 13px Arial, Helvetica, sans-serif;
+            margin: 1em;
+        }
+
+        #code {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            width: 45%;
+        }
+
+        hr {
+            border-top: 3px solid black;
+            height: 0;
+        }
+
+        #docs {
+            padding: 2em;
+            font: normal 14px Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        dt {
+            font: bold 14px Consolas, "Courier New", Courier, mono;
+            color: steelblue;
+            background-color: #f0f0f0;
+            margin-top: 1.5em;
+            padding: 0.2em 0.5em;
+        }
+
+        dd {
+        }
+
+        dd code {
+            font: bold 12px Consolas, "Courier New", Courier, mono;
+        }
+
+        dd > code {
+            display: block;
+            color: #666666;
+        }
+
+        dd > code.default {
+            color: #007700;
+        }
+
+        pre.codesample {
+            font: bold 12px Consolas, "Courier New", Courier, mono;
+            background: #ffffff;
+            overflow: auto;
+            width: 75%;
+            border: solid gray;
+            border-width: .1em .1em .1em .8em;
+            padding: .2em .6em;
+            margin: 0 auto;
+            line-height: 125%
+        }
+
+        .splitter_panel > div {
+            padding: 0 1em;
+        }
+
+        #demoOne {
+            background-color: #e7e3ff;
+            width: 50%;
+            height: 375px;
+            border: 4px solid #666;
+        }
+
+        #demoOneA {
+            width: 100%;
+            background-color: #e7e3ff;
+        }
+
+        #demoThree {
+            width: 50%;
+            height: 150px;
+            margin-top: 1em;
+            border: 4px solid silver;
+        }
+
+        #demoOneB {
+            background-color: red;
+        }
+
+        #demoTwoA {
+            background-color: #efbd73;
+        }
+
+        #demoTwoB {
+            background-color: #ef9e92;
+        }
+
+        #demoThree {
+            background-color: #BEE927
+        }
+
+        #demoThreeA {
+            background-color: #fafafa;
+        }
+
+        #demoThreeB {
+            background-color: #f6f6f6;
+        }
+    </style>
+
+    <script>
+        jQuery(function ($) {
+            $('#demoOne').splitter({limit: 50, orientation: 'horizontal'});
+            $('#demoOneB').splitter();
+            $('#demoThree').splitter({handle: 'striped', position: '150px', limit: 0});
+        });
+    </script>
+</head>
+<body>
+
+<div id="demoOne">
+    <div id="demoOneA">
+        <h4>#demoOneA</h4>
+
+        <p>
+            Welcome to the demo page for <code>hiltonjanfield/jquery.splitter</code>.
+        </p>
+
+        <p>
+            This splitter is set with <code>{limit: 50, orientation: 'horizontal'}</code>.
+            This is the lower pane of the outer splitter; the two panels and splitter above are contained within the
+            upper panel of this splitter.
+        </p>
+
+        <p style="color: #888888;">
+            Controller feedback element software integral femtosecond element overflow integral. Or patch element
+            supporting mainframe software resistor floating-point development broadband, technician development
+            converter generator.
+            Encapsulated logistically kilohertz fragmentation feedback coordinated, anomoly port log read-only plasma
+            deviation deviation scalar. Pulse, capacitance software feedback feedback network, device overflow.
+        </p>
+    </div>
+    <div id="demoOneB">
+        <div id="demoTwoA">
+            <h4>#demoTwoA</h4>
+
+            <p>
+                This splitter was created with purely default options, resulting in a vertical splitter, 100px minimum
+                panel size, and a standard collapse handle.
+            </p>
+        </div>
+        <div id="demoTwoB">
+            <h4>#demoTwoB</h4>
+
+            <p style="color: #888888;">
+                There's a voice that keeps on calling me. Down the road, that's where I'll always be. Every stop I make,
+                I make a new friend. Can't stay for long, just turn around and I'm gone again. Maybe tomorrow, I'll want
+                to settle down, Until tomorrow, I'll just keep moving on.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="demoThree">
+    <div id="demoThreeA">
+        <h4>#demoThreeA</h4>
+
+        <p>
+            Sidebar Example!
+        </p>
+    </div>
+    <div id="demoThreeB">
+        <h4>#demoThreeB</h4>
+
+        <p>
+            This splitter was created using with the options <code>{handle: 'striped', position: '150px', limit:
+            0}</code>. <code>position</code> defines a starting size for the left or upper panel, <code>limit</code>
+            defines how small the panels may get, while <code>handle</code> sets up a different effect for the collapse
+            handle.
+        </p>
+
+        <p style="color: #888888;">
+            Pulse recognition metafile ethernet element prompt dithering bus system resistor deviation scalar
+            coordinated
+            transmission adaptive. Prompt reducer record deviation led silicon transmission. Floating-point port
+            development
+            plasma, led phase pulse. High, inversion, recursive, element system broadband, gigabyte extended sampling
+            frequency deviation data software.
+        </p>
+    </div>
+</div>
+
+
+<!-- Example code display. -->
+
+    <!-- HTML generated using hilite.me and slightly modified by hand -->
+    <pre id="code" class="codesample"><span style="color: #007700">&lt;div</span> <span
+            style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;demoOne&quot;</span><span
+            style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoOneA&quot;</span><span style="color: #007700">&gt;</span>
+        [...]
+    <span style="color: #007700">&lt;/div&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoOneB&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoTwoA&quot;</span><span style="color: #007700">&gt;</span>
+            [...]
+        <span style="color: #007700">&lt;/div&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoTwoB&quot;</span><span style="color: #007700">&gt;</span>
+            [...]
+        <span style="color: #007700">&lt;/div&gt;</span>
+    <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/div&gt;</span>
+
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoThree&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoThreeA&quot;</span><span style="color: #007700">&gt;</span>
+        [...]
+    <span style="color: #007700">&lt;/div&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span
+                style="background-color: #fff0f0">&quot;demoThreeB&quot;</span><span style="color: #007700">&gt;</span>
+        [...]
+    <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/div&gt;</span>
+
+
+<span style="color: #770000">&lt;script&gt;</span>
+    jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
+        $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).splitter({limit<span
+                style="color: #333333">:</span> <span
+                style="color: #0000DD; font-weight: bold">50</span>, orientation<span
+                style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;horizontal&#39;</span>});
+        $(<span style="background-color: #fff0f0">&#39;#demoOneB&#39;</span>).splitter();
+        $(<span style="background-color: #fff0f0">&#39;#demoThree&#39;</span>).splitter({handle<span
+                style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;striped&#39;</span>, position<span
+                style="color: #333333">:</span> <span
+                style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
+                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
+    });
+<span style="color: #770000">&lt;/script&gt;</span>
+</pre>
+
+<hr>
+
+<div id="docs">
+    <h1>Usage</h1>
+    <dl>
+        <dt>Basic Usage</dt>
+        <dd>
+            <p>
+                Three HTML elements are required at a minimum. These can theoretically be any elements, but are intended
+                to be DIVs or other basic block-level elements. There must be one parent element and two child
+                elements. Additional child elements can exist, but is not supported and will result in unintended
+                side effects.
+            </p>
+            <pre class="codesample"><span style="color: #007700">&lt;div</span> <span
+                    style="color: #0000CC">id=</span><span
+                    style="background-color: #fff0f0">&quot;panels&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div&gt;</span>
+        [...]
+    <span style="color: #007700">&lt;/div&gt;</span>
+    <span style="color: #007700">&lt;div&gt;</span>
+        [...]
+    <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/div&gt;</span></pre>
+
+            <p>
+                Once that is in place, all you need to do is call <code>.splitter()</code> on an element.
+                This will insert a splitter between the two child elements of <code>#panels</code> using default
+                settings (vertical splitter and defaults as shown below).
+            </p>
+
+            <pre class="codesample"><span style="color: #770000">&lt;script&gt;</span>
+    jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
+        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).splitter();
+    });
+<span style="color: #770000">&lt;/script&gt;</span>
+</pre>
+        </dd>
+        <dt>Advanced Usage</dt>
+        <dd>
+
+            <p>
+                <code>jquery.splitter</code> has a number of options, available below. Usage is just like most
+                jQuery plugins - just pass the options as an object parameter.
+            </p>
+
+            <pre class="codesample"><span style="color: #770000">&lt;script&gt;</span>
+    jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
+        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).splitter({handle<span
+                        style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;striped&#39;</span>, position<span
+                        style="color: #333333">:</span> <span
+                        style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
+                        style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
+<span style="color: #770000">&lt;/script&gt;</span>
+</pre>
+        </dd>
+    </dl>
+
+    <h1>Options</h1>
+    <dl>
+        <dt>orientation</dt>
+        <dd>
+            <code>['vertical'|'horizontal']</code>
+            <code>Default: 'vertical'</code>
+
+            <p>If not defined or invalid, defaults to <code>vertical</code>.</p>
+        </dd>
+
+        <dt>limit</dt>
+        <dd>
+            <code>[integer]</code>
+            <code>Default: 100</code>
+
+            <p>
+                Defines the minimum size for both panels in pixels. In the examples above, the vertical splitter
+                between the yellow and red panes is set with <code>{limit: 25}</code>, while the horizontal splitter
+                between those and the purple pane is set with <code>{limit: 50}</code>.
+            </p>
+        </dd>
+
+        <dt>position</dt>
+        <dd>
+            <code>[integer (px)|string (px|%)]</code>
+            <code>Default: '50%'</code>
+
+            <p>
+                Sets the starting size for the left or top panel. Position can be defined in pixels by passing an
+                integer <code>{position: 125}</code>, or a string with a 'px' suffix <code>{position: '125px'}</code>,
+                or as a percentage as a string with a '%' suffix. <code>{position: '25%'}</code>. Strings without a
+                suffix will be assumed to be in pixels.
+            </p>
+        </dd>
+
+        <dt>invisible</dt>
+        <dd>
+            <code>[true|false]</code>
+            <code>Default: false</code>
+
+            <p>
+                Turns the splitter invisible. The splitter will still work, there will simply be no visible control.
+                This is similar to the splitter functionality in JetBrains IDEs.
+            </p>
+        </dd>
+
+        <dt>handle</dt>
+        <dd>
+            <code>['default'|'striped'|'none'|&lt;user-defined&gt;]</code>
+            <code>Default: 'default'</code>
+
+            <p>
+                Defines how the the collapse is drawn.
+            </p>
+            <ul>
+                <li><code>'default'</code> is a basic grey handle, as shown in the first two examples above.</li>
+                <li><code>'striped'</code> draws a basic striped handle, as shown in the third example above.</li>
+                <li><code>'none'</code> hides the handle completely, disabling it.</li>
+                <li>
+                    <code>&lt;user-defined&gt;</code> - Identifier for any CSS class you create. By adding new
+                    <code>.splitter-handle-</code> classes (see the CSS file), you can create custom styles without
+                    overriding the standard ones.
+                    <br>
+                    The following CSS classes are required:
+                    <ul>
+                        <li><code>.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
+                        <li><code>.splitter-handle-<i>example</i> .splitter_handle:hover { }</code></li>
+                        <li><code>.splitter-vert.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
+                        <li><code>.splitter-horiz.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </dd>
+
+        <dt>onDragStart</dt>
+        <dd>
+            <code>Default: $.noop</code>
+
+            <p>Event handler called when a user starts dragging a splitter.</p>
+        </dd>
+
+        <dt>onDragEnd</dt>
+        <dd>
+            <code>Default: $.noop</code>
+
+            <p>Event handler called when a user stops dragging a splitter.</p>
+        </dd>
+
+        <dt>onDrag</dt>
+        <dd>
+            <code>Default: $.noop</code>
+
+            <p>Event handler called after a user moves a splitter.</p>
+        </dd>
+    </dl>
+</div>
+
+</body>
+</html>

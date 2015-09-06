@@ -1,0 +1,36 @@
+{
+  "name": "splitter",
+  "title": "jQuery Splitter",
+  "description": "Creates a movable splitter to separate content and let the user resize at will, with optional quick-hide handles.",
+  "keywords": [
+    "splitter",
+    "ui",
+    "widget",
+    "resize"
+  ],
+  "authors": [
+    {
+      "name": "Hilton Janfield",
+      "email": "hilton@janfield.ca"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "LGPLv3",
+      "url": "http://www.gnu.org/licenses/lgpl.html"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hiltonjanfield/jquery.splitter.git"
+  },
+  "homepage": "https://github.com/hiltonjanfield/jquery.splitter",
+  "bugs": "https://github.com/hiltonjanfield/jquery.splitter/issues",
+  "dependencies": {
+    "jquery": ">=2.1"
+  },
+  "main": [
+    "js/jquery.splitter.js",
+    "css/jquery.splitter.css"
+  ]
+}
