@@ -24,6 +24,8 @@
     var handleId = null;
     var splitters = [];
     var currentSplitter = null;
+    var splitterSize = 6;
+    var splitterHalf = 3;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -140,8 +142,8 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var splitterSize = splitter.outerHeight();
-                            var splitterHalf = splitterSize / 2;
+                            splitterSize = splitter.outerHeight();
+                            splitterHalf = splitterSize / 2;
                             if (settings.invisible) {
                                 var panelOneHeight = panelOne.outerHeight(position).outerHeight();
                                 panelTwo.outerHeight(self.height() - panelOneHeight);
@@ -163,8 +165,8 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var splitterSize = splitter.outerWidth();
-                            var splitterHalf = splitterSize / 2;
+                            splitterSize = splitter.outerWidth();
+                            splitterHalf = splitterSize / 2;
                             if (settings.invisible) {
                                 var panelOneWidth = panelOne.outerWidth(position).outerWidth();
                                 panelTwo.outerWidth(self.width() - panelOneWidth);
@@ -327,7 +329,7 @@
                             if (e.originalEvent && e.originalEvent.changedTouches) {
                                 pageY = e.originalEvent.changedTouches[0].pageY;
                             }
-                            var y = pageY - offset.top;
+                            var y = pageY - offset.top - splitterHalf;
                             if (y <= currentSplitter.limit) {
                                 y = currentSplitter.limit + 1;
                             } else if (y >= currentSplitter.height() - limit) {
@@ -336,8 +338,7 @@
                             if (y > currentSplitter.limit &&
                                 y < currentSplitter.height() - limit) {
                                 currentSplitter.position(y, true);
-                                currentSplitter.find('.splitter_container').
-                                    trigger('splitter.resize');
+                                //currentSplitter.find('.splitter_container').trigger('splitter.resize');
                                 e.preventDefault();
                             }
                         } else {
@@ -345,7 +346,7 @@
                             if (e.originalEvent && e.originalEvent.changedTouches) {
                                 pageX = e.originalEvent.changedTouches[0].pageX;
                             }
-                            var x = pageX - offset.left;
+                            var x = pageX - offset.left - splitterHalf;
                             if (x <= currentSplitter.limit) {
                                 x = currentSplitter.limit + 1;
                             } else if (x >= currentSplitter.width() - limit) {
@@ -354,7 +355,7 @@
                             if (x > currentSplitter.limit &&
                                 x < currentSplitter.width() - limit) {
                                 currentSplitter.position(x, true);
-                                //currentSplitter.find('.splitter_panel').trigger('splitter.resize');
+                                //currentSplitter.find('.splitter_container').trigger('splitter.resize');
                                 e.preventDefault();
                             }
                         }
