@@ -1,9 +1,9 @@
 /*!
- * jQuery Splitter Plugin
+ * jQuery Enhanced Splitter Plugin
  * Main ECMAScript File
  * Version 1.0.0
  *
- * https://github.com/hiltonjanfield/jquery.splitter
+ * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

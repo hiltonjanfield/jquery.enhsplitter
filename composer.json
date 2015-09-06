@@ -1,6 +1,6 @@
 {
-  "name": "splitter",
-  "title": "jQuery Splitter",
+  "name": "hiltonjanfield/jquery.enhsplitter",
+  "title": "jQuery Enhanced Splitter",
   "description": "Creates a movable splitter to separate content and let the user resize at will, with optional quick-hide handles.",
   "keywords": [
     "splitter",
@@ -22,15 +22,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hiltonjanfield/jquery.splitter.git"
+    "url": "https://github.com/hiltonjanfield/jquery.enhsplitter.git"
   },
-  "homepage": "https://github.com/hiltonjanfield/jquery.splitter",
-  "bugs": "https://github.com/hiltonjanfield/jquery.splitter/issues",
+  "homepage": "https://github.com/hiltonjanfield/jquery.enhsplitter",
+  "bugs": "https://github.com/hiltonjanfield/jquery.enhsplitter/issues",
   "dependencies": {
     "jquery": ">=2.1"
   },
   "main": [
-    "js/jquery.splitter.js",
-    "css/jquery.splitter.css"
+    "js/jquery.enhsplitter.js",
+    "css/jquery.enhsplitter.css"
   ]
 }

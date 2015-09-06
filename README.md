@@ -1,19 +1,19 @@
-# jQuery Splitter
+# jQuery Enhanced Splitter
 
-jquery.splitter is plugin to generate sliding splitters on your page. Useful for separating content, emulating the
+jquery.enhsplitter is a plugin to generate sliding splitters on your page. Useful for separating content, emulating the
 look of frames, and more. Completely customizable look and feel, and touchscreen friendly.
 
 # Demo
 
-<http://janfield.ca/github/jquery.splitter/demo.html>
+<http://janfield.ca/github/jquery.enhsplitter/demo.html>
 
 # Example
 
-A minimal call to jquery.splitter in a jQuery ready function looks like this:
+A minimal call to jquery.enhsplitter in a jQuery ready function looks like this:
 
 ```javascript
 jQuery(function ($) {
-    $('#panels').splitter();
+    $('#panels').enhsplitter();
 }
 ```
 
@@ -22,7 +22,7 @@ to be DIVs or other basic block-level elements. There must be one parent element
 elements. Additional child elements can exist, but is not supported and will result in unintended
 side effects.
 
-Once that is in place, all you need to do is call `.splitter()` on an element, as shown above.
+Once that is in place, all you need to do is call `.enhsplitter()` on an element, as shown above.
 This will insert a splitter between the two child elements of `#panels` using default
 settings (vertical splitter and defaults as shown below).
 
@@ -40,12 +40,12 @@ settings (vertical splitter and defaults as shown below).
 Advanced Usage
 --------------
 
-jquery.splitter has a number of options, available below. Usage is just like most jQuery plugins -
+jquery.enhsplitter has a number of options, available below. Usage is just like most jQuery plugins -
 just pass the options as an object parameter.
 
 ```javascript
 jQuery(function ($) {
-    $('#panels').splitter({
+    $('#panels').enhsplitter({
         orientation: 'horizontal',
         limit: 125,
         handle: 'striped'
@@ -64,5 +64,6 @@ Released under the terms of the [GNU Lesser General Public License](http://www.g
 # Original Author and Contributors
 
 This plugin was originally created by Jakub Jankiewicz. See https://github.com/jcubic/jquery.splitter
+
 This project was originally forked from jcbuic/jquery.splitter, but was heavily overhauled and is now maintained as a
 separate project.

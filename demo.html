@@ -6,8 +6,8 @@
     <meta name="Description" content="jQuery Splitter Demo"/>
     <link rel="shortcut icon" href=""/>
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/jquery.splitter.js"></script>
-    <link href="css/jquery.splitter.css" rel="stylesheet"/>
+    <script src="js/jquery.enhsplitter.js"></script>
+    <link href="css/jquery.enhsplitter.css" rel="stylesheet"/>
     <!--[if IE]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -120,9 +120,9 @@
 
     <script>
         jQuery(function ($) {
-            $('#demoOne').splitter({limit: 50, orientation: 'horizontal'});
-            $('#demoOneB').splitter();
-            $('#demoThree').splitter({handle: 'striped', position: '150px', limit: 0});
+            $('#demoOne').enhsplitter({limit: 50, orientation: 'horizontal'});
+            $('#demoOneB').enhsplitter();
+            $('#demoThree').enhsplitter({handle: 'striped', position: '150px', limit: 0});
         });
     </script>
 </head>
@@ -133,7 +133,7 @@
         <h4>#demoOneA</h4>
 
         <p>
-            Welcome to the demo page for <code>hiltonjanfield/jquery.splitter</code>.
+            Welcome to the demo page for <code>hiltonjanfield/jquery.enhsplitter</code>.
         </p>
 
         <p>
@@ -239,12 +239,12 @@
 
 <span style="color: #770000">&lt;script&gt;</span>
     jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
-        $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).splitter({limit<span
+        $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).enhsplitter({limit<span
                 style="color: #333333">:</span> <span
                 style="color: #0000DD; font-weight: bold">50</span>, orientation<span
                 style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;horizontal&#39;</span>});
-        $(<span style="background-color: #fff0f0">&#39;#demoOneB&#39;</span>).splitter();
-        $(<span style="background-color: #fff0f0">&#39;#demoThree&#39;</span>).splitter({handle<span
+        $(<span style="background-color: #fff0f0">&#39;#demoOneB&#39;</span>).enhsplitter();
+        $(<span style="background-color: #fff0f0">&#39;#demoThree&#39;</span>).enhsplitter({handle<span
                 style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;striped&#39;</span>, position<span
                 style="color: #333333">:</span> <span
                 style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
@@ -278,14 +278,14 @@
 <span style="color: #007700">&lt;/div&gt;</span></pre>
 
             <p>
-                Once that is in place, all you need to do is call <code>.splitter()</code> on an element.
+                Once that is in place, all you need to do is call <code>.enhsplitter()</code> on an element.
                 This will insert a splitter between the two child elements of <code>#panels</code> using default
                 settings (vertical splitter and defaults as shown below).
             </p>
 
             <pre class="codesample"><span style="color: #770000">&lt;script&gt;</span>
     jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
-        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).splitter();
+        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).enhsplitter();
     });
 <span style="color: #770000">&lt;/script&gt;</span>
 </pre>
@@ -294,13 +294,13 @@
         <dd>
 
             <p>
-                <code>jquery.splitter</code> has a number of options, available below. Usage is just like most
+                <code>jquery.enhsplitter</code> has a number of options, available below. Usage is just like most
                 jQuery plugins - just pass the options as an object parameter.
             </p>
 
             <pre class="codesample"><span style="color: #770000">&lt;script&gt;</span>
     jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
-        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).splitter({handle<span
+        $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).enhsplitter({handle<span
                         style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;striped&#39;</span>, position<span
                         style="color: #333333">:</span> <span
                         style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
