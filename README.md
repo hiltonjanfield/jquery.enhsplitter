@@ -5,6 +5,8 @@ look of frames, and more. Completely customizable look and feel, and touchscreen
 
 # Demo
 
+Demo and basic documentation is available at:
+
 <http://janfield.ca/github/jquery.enhsplitter/demo.html>
 
 # Example
@@ -40,8 +42,11 @@ settings (vertical splitter and defaults as shown below).
 Advanced Usage
 --------------
 
-jquery.enhsplitter has a number of options, available below. Usage is just like most jQuery plugins -
+jquery.enhsplitter has a number of options. Usage is just like most jQuery plugins -
 just pass the options as an object parameter.
+
+Please refer to the [demo](http://janfield.ca/github/jquery.enhsplitter/demo.html) for full details on the
+available options.
 
 ```javascript
 jQuery(function ($) {
@@ -53,7 +58,6 @@ jQuery(function ($) {
 }
 ```
 
-Please refer to the demo file for full details.
 
 # License
 
