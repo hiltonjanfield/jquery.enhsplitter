@@ -38,6 +38,7 @@
             position: '50%',
             invisible: false,
             handle: 'default',
+            height: null,
             onDragStart: $.noop,
             onDragEnd: $.noop,
             onDrag: $.noop
@@ -57,9 +58,21 @@
             this.addClass('splitter_container splitter-vertical');
         }
 
+        var id = splitterCount++;
         var width = this.width();
         var height = this.height();
-        var id = splitterCount++;
+
+        // Check for an empty container height (happens when height on the parent has not been set), and fix.
+        if (!settings.height && height == 0) {
+            settings.height = '10em';
+        }
+
+        if (settings.height) {
+            if (typeof settings.height === 'integer') {
+                settings.height += 'px';
+            }
+            this.css('height', settings.height);
+        }
 
         var splitter = $('<div class="splitter splitter-handle-' + settings.handle + '"/>')
             .bind('mouseenter touchstart', function () {

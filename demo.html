@@ -315,7 +315,7 @@
         <dt>orientation</dt>
         <dd>
             <code>['vertical'|'horizontal']</code>
-            <code>Default: 'vertical'</code>
+            <code class="default">Default: 'vertical'</code>
 
             <p>If not defined or invalid, defaults to <code>vertical</code>.</p>
         </dd>
@@ -323,7 +323,7 @@
         <dt>limit</dt>
         <dd>
             <code>[integer]</code>
-            <code>Default: 100</code>
+            <code class="default">Default: 100</code>
 
             <p>
                 Defines the minimum size for both panels in pixels. In the examples above, the vertical splitter
@@ -335,7 +335,7 @@
         <dt>position</dt>
         <dd>
             <code>[integer (px)|string (px|%)]</code>
-            <code>Default: '50%'</code>
+            <code class="default">Default: '50%'</code>
 
             <p>
                 Sets the starting size for the left or top panel. Position can be defined in pixels by passing an
@@ -348,7 +348,7 @@
         <dt>invisible</dt>
         <dd>
             <code>[true|false]</code>
-            <code>Default: false</code>
+            <code class="default">Default: false</code>
 
             <p>
                 Turns the splitter invisible. The splitter will still work, there will simply be no visible control.
@@ -359,7 +359,7 @@
         <dt>handle</dt>
         <dd>
             <code>['default'|'striped'|'none'|&lt;user-defined&gt;]</code>
-            <code>Default: 'default'</code>
+            <code class="default">Default: 'default'</code>
 
             <p>
                 Defines how the the collapse is drawn.
@@ -383,24 +383,40 @@
                 </li>
             </ul>
         </dd>
+        
+        <dt>height</dt>
+        <dd>
+            <code>[integer (pixels)|css value]</code>
+            <code class="default">Default: <em>none</em></code>
+
+            <p>
+                Specifies the height of the container. Pixels will be assumed for integer values, otherwise
+                any CSS value can be used.
+            </p>
+
+            <p>
+                In the instance that the both the container and parent heights have not been specified, the CSS on
+                the container will cause the height to become 0. If this happens, height will default to 10em.
+            </p>
+        </dd>
 
         <dt>onDragStart</dt>
         <dd>
-            <code>Default: $.noop</code>
+            <code class="default">Default: $.noop</code>
 
             <p>Event handler called when a user starts dragging a splitter.</p>
         </dd>
 
         <dt>onDragEnd</dt>
         <dd>
-            <code>Default: $.noop</code>
+            <code class="default">Default: $.noop</code>
 
             <p>Event handler called when a user stops dragging a splitter.</p>
         </dd>
 
         <dt>onDrag</dt>
         <dd>
-            <code>Default: $.noop</code>
+            <code class="default">Default: $.noop</code>
 
             <p>Event handler called after a user moves a splitter.</p>
         </dd>
