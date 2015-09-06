@@ -75,6 +75,13 @@
             this.css('height', settings.height);
         }
 
+        if (settings.limit < 0) {
+            settings.limit = 0;
+        }
+        if (settings.limit > this.width()) {
+            settings.limit = this.width();
+        }
+
         var splitter = $('<div class="splitter splitter-handle-' + settings.handle + '"/>')
             .bind('mouseenter touchstart', function () {
                 splitterId = id;
@@ -107,12 +114,22 @@
                 var match = position.match(/^([0-9\.]+)(px|%)?$/);
                 if (match) {
                     if (match[2] && match[2] == '%') {
+                        if (+match[1] > 100) { match[1] = 100; }
                         if (settings.orientation == 'horizontal') {
                             return (height * +match[1]) / 100;
                         } else {
                             return (width * +match[1]) / 100;
                         }
                     } else {
+                        if (settings.orientation == 'horizontal') {
+                            if (+match[1] > this.height()) {
+                                match[1] = this.height();
+                            }
+                        } else {
+                            if (+match[1] > this.width()) {
+                                match[1] = this.width();
+                            }
+                        }
                         return +match[1]; // assume pixels for ANY suffix except '%', or lack thereof.
                     }
                 } else {
@@ -239,24 +256,28 @@
         });
 
         //initial position of splitter
-        var pos;
+        var pos = get_position(settings.position);
+
         if (settings.orientation == 'horizontal') {
-            if (pos > height - settings.limit) {
-                pos = height - settings.limit;
-            } else {
-                pos = get_position(settings.position);
+            if (pos >= height - settings.limit - splitterHalf) {
+                pos = height - settings.limit - splitterHalf;
+                splitter.addClass('splitter-closed-bottom');
+            } else if (pos <= settings.limit) {
+                pos = settings.limit;
+                splitter.addClass('splitter-closed-top');
             }
         } else {
-            if (pos > width - settings.limit) {
-                pos = width - settings.limit;
-            } else {
-                pos = get_position(settings.position);
+            if (pos >= width - settings.limit - splitterHalf) {
+                pos = width - settings.limit - splitterHalf
+                splitter.addClass('splitter-closed-right');
+            } else if (pos <= settings.limit) {
+                pos = settings.limit;
+                splitter.addClass('splitter-closed-left');
             }
         }
-        if (pos < settings.limit) {
-            pos = settings.limit;
-        }
+
         self.position(pos, true);
+
         if (splitters.length == 0) { // first time bind events to document
             $(window).bind('resize.splitter', function () {
                 $.each(splitters, function (i, splitter) {
