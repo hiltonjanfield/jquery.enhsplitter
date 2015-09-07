@@ -141,18 +141,23 @@
 .splitter-vertical .splitter.splitter-handle-block .splitter_handle {
   width: 5px;
 }
+.splitter_container.splitter-active .splitter {
+  z-index: 1000;
+  /* Important to keep z-index of active splitter above .splitterMask. */
+}
 .splitter_container.splitter-active .splitter .splitter_handle {
   border-color: #000000;
+  cursor: inherit;
 }
 .splitter_container.splitter-active .splitter.splitter-handle-bar .splitter_handle,
 .splitter_container.splitter-active .splitter.splitter-handle-block .splitter_handle {
   background-color: #000000;
 }
-.splitterMask {
+.splitter_mask {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1001;
+  z-index: 999;
 }

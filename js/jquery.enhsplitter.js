@@ -270,53 +270,49 @@
             });
 
             $(document.documentElement)
-                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter > .splitter_handle', function (e) {
+                .on('click.splitter', '.splitter_handle', function (e) {
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
-                    currentSplitter.data('handleClick', true);
+                    if (currentSplitter.data('position')) {
+                        var newPos = currentSplitter.data('position');
+                        currentSplitter.data('position', null);
+
+                    } else {
+                        currentSplitter.data('position', currentSplitter.position());
+                        var newPos = currentSplitter.limit + 1;
+                    }
+
+                    currentSplitter.position(newPos);
+                    currentSplitter.find('.splitter_panel').trigger('resize.splitter');
+                    e.preventDefault();
+                    $('.splitter_mask').remove();
+                    currentSplitter.settings.onDrag(e);
+                    currentSplitter.removeClass('splitter-active');
+                    currentSplitter = null;
                 })
 
                 .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter', function (e) {
                     e.preventDefault();
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
                     currentSplitter.addClass('splitter-active');
-                    $('<div class="splitterMask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
+                    $('<div class="splitter_mask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
                     currentSplitter.settings.onDragStart(e);
-                    return true;
                 })
 
                 // Todo: Explore and test the touch events.
-                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitterMask', function (e) {
+                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
-                        if (currentSplitter.data('handleClick')) {
-                            currentSplitter.data('handleClick', null);
-
-                            if (currentSplitter.data('position')) {
-                                var newPos = currentSplitter.data('position');
-                                currentSplitter.data('position', null);
-
-                            } else {
-                                currentSplitter.data('position', currentSplitter.position());
-                                var newPos = currentSplitter.limit + 1;
-                            }
-
-                            currentSplitter.position(newPos);
-                            currentSplitter.find('.splitter_panel').trigger('resize.splitter');
-                            e.preventDefault();
-                            currentSplitter.settings.onDrag(e);
-                        } else {
-                            currentSplitter.settings.onDragEnd(e);
-                            if (currentSplitter.position() == (currentSplitter.limit + 1)) {
-                                currentSplitter.data('position', currentSplitter.settings.position);
-                            }
+                        if (currentSplitter.position() == (currentSplitter.limit + 1)) {
+                            currentSplitter.data('position', currentSplitter.settings.position);
                         }
-                        $('.splitterMask').remove();
+                        $('.splitter_mask').remove();
+                        currentSplitter.settings.onDragEnd(e);
                         currentSplitter.removeClass('splitter-active');
                         currentSplitter = null;
                     }
                 })
 
-                .on('mousemove.splitter touchmove.splitter', '.splitterMask, .splitter_container', function (e) {
+                .on('mousemove.splitter touchmove.splitter', '.splitter_mask, .splitter', function (e) {
                     if (currentSplitter !== null) {
                         var limit = currentSplitter.limit;
                         var offset = currentSplitter.offset();
