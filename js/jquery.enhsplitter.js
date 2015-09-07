@@ -72,6 +72,7 @@
                 settings.height += 'px';
             }
             this.css('height', settings.height);
+            height = this.height();
         }
 
         if (settings.limit < 0) {
