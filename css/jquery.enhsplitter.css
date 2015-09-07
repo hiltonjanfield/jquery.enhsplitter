@@ -53,7 +53,7 @@
   padding: 0 !important;
   box-sizing: border-box;
 }
-.splitter .splitter_handle {
+.splitter > .splitter_handle {
   cursor: pointer;
   background-color: #999999;
   position: relative;
@@ -61,11 +61,11 @@
   z-index: 1000;
   box-sizing: border-box;
 }
-.splitter .splitter_handle:hover {
+.splitter > .splitter_handle:hover {
   background-color: #666666;
   border-color: #666666;
 }
-.splitter .splitter_handle:active {
+.splitter > .splitter_handle:active {
   background-color: #000000;
   border-color: #000000;
 }
@@ -78,7 +78,7 @@
 .splitter.splitter-handle-none .splitter_handle {
   display: none;
 }
-.splitter-horizontal .splitter {
+.splitter-horizontal > .splitter {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #666666;
   cursor: ns-resize;
@@ -86,31 +86,31 @@
   width: 100%;
   height: 7px;
 }
-.splitter-horizontal .splitter .splitter_handle {
+.splitter-horizontal > .splitter > .splitter_handle {
   width: 50px;
 }
-.splitter-horizontal .splitter.splitter-handle-default .splitter_handle {
+.splitter-horizontal > .splitter.splitter-handle-default > .splitter_handle {
   height: 3px;
   margin-top: 1px;
   border-top: 1px solid #999999;
   border-bottom: 1px solid #999999;
   background-color: transparent;
 }
-.splitter-horizontal .splitter.splitter-handle-default .splitter_handle:hover {
+.splitter-horizontal > .splitter.splitter-handle-default > .splitter_handle:hover {
   border-color: #666666;
 }
-.splitter-horizontal .splitter.splitter-handle-default .splitter_handle:active {
+.splitter-horizontal > .splitter.splitter-handle-default > .splitter_handle:active {
   border-color: #000000;
 }
-.splitter-horizontal .splitter.splitter-handle-bar .splitter_handle {
+.splitter-horizontal > .splitter.splitter-handle-bar > .splitter_handle {
   height: 3px;
   margin-top: 1px;
 }
-.splitter-horizontal .splitter.splitter-handle-block .splitter_handle {
+.splitter-horizontal > .splitter.splitter-handle-block > .splitter_handle {
   height: 5px;
   margin-top: 1px;
 }
-.splitter-vertical .splitter {
+.splitter-vertical > .splitter {
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #666666;
   cursor: ew-resize;
@@ -118,39 +118,39 @@
   width: 7px;
   height: 100%;
 }
-.splitter-vertical .splitter .splitter_handle {
+.splitter-vertical > .splitter > .splitter_handle {
   top: 50%;
   margin-top: -25px;
   height: 50px;
 }
-.splitter-vertical .splitter.splitter-handle-default .splitter_handle {
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle {
   width: 3px;
   border-left: 1px solid #999999;
   border-right: 1px solid #999999;
   background-color: transparent;
 }
-.splitter-vertical .splitter.splitter-handle-default .splitter_handle:hover {
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:hover {
   border-color: #666666;
 }
-.splitter-vertical .splitter.splitter-handle-default .splitter_handle:active {
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:active {
   border-color: #000000;
 }
-.splitter-vertical .splitter.splitter-handle-bar .splitter_handle {
+.splitter-vertical > .splitter.splitter-handle-bar > .splitter_handle {
   width: 3px;
 }
-.splitter-vertical .splitter.splitter-handle-block .splitter_handle {
+.splitter-vertical > .splitter.splitter-handle-block > .splitter_handle {
   width: 5px;
 }
-.splitter_container.splitter-active .splitter {
+.splitter_container.splitter-active > .splitter {
   z-index: 1000;
   /* Important to keep z-index of active splitter above .splitterMask. */
 }
-.splitter_container.splitter-active .splitter .splitter_handle {
+.splitter_container.splitter-active > .splitter > .splitter_handle {
   border-color: #000000;
   cursor: inherit;
 }
-.splitter_container.splitter-active .splitter.splitter-handle-bar .splitter_handle,
-.splitter_container.splitter-active .splitter.splitter-handle-block .splitter_handle {
+.splitter_container.splitter-active > .splitter.splitter-handle-bar > .splitter_handle,
+.splitter_container.splitter-active > .splitter.splitter-handle-block > .splitter_handle {
   background-color: #000000;
 }
 .splitter_mask {

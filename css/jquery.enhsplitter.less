@@ -78,7 +78,7 @@
   padding: 0 !important;
   box-sizing: border-box;
 
-  .splitter_handle {
+  > .splitter_handle {
     cursor: pointer;
     background-color: @handle_color;
     position: relative;
@@ -112,7 +112,7 @@
 }
 
 .splitter-horizontal {
-  .splitter {
+  > .splitter {
     border-top: 1px solid @splitter_highlight;
     border-bottom: 1px solid @splitter_shadow;
     cursor: ns-resize;
@@ -120,12 +120,12 @@
     width: 100%;
     height: @splitter_size;
 
-    .splitter_handle {
+    > .splitter_handle {
       width: @handle_size;
     }
 
     &.splitter-handle-default {
-      .splitter_handle {
+      > .splitter_handle {
         height: 3px;
         margin-top: 1px;
         border-top: 1px solid @handle_color;
@@ -143,14 +143,14 @@
     }
 
     &.splitter-handle-bar {
-      .splitter_handle {
+      > .splitter_handle {
         height: 3px;
         margin-top: 1px;
       }
     }
 
     &.splitter-handle-block {
-      .splitter_handle {
+      > .splitter_handle {
         height: @splitter_size - 2;
         margin-top: 1px;
       }
@@ -159,7 +159,7 @@
 }
 
 .splitter-vertical {
-  .splitter {
+  > .splitter {
     border-left: 1px solid @splitter_highlight;
     border-right: 1px solid @splitter_shadow;
     cursor: ew-resize;
@@ -167,14 +167,14 @@
     width: @splitter_size;
     height: 100%;
 
-    .splitter_handle {
+    > .splitter_handle {
       top: 50%;
       margin-top: -25px;
       height: @handle_size;
     }
 
     &.splitter-handle-default {
-      .splitter_handle {
+      > .splitter_handle {
         width: 3px;
         border-left: 1px solid @handle_color;
         border-right: 1px solid @handle_color;
@@ -191,29 +191,29 @@
     }
 
     &.splitter-handle-bar {
-      .splitter_handle {
+      > .splitter_handle {
         width: 3px;
       }
     }
 
     &.splitter-handle-block {
-      .splitter_handle {
+      > .splitter_handle {
         width: @splitter_size - 2;
       }
     }
   }
 }
 
-.splitter_container.splitter-active .splitter {
+.splitter_container.splitter-active > .splitter {
   z-index: 1000; /* Important to keep z-index of active splitter above .splitterMask. */
 
-  .splitter_handle {
+  > .splitter_handle {
     border-color: @handle_active;
     cursor: inherit;
   }
 
-  &.splitter-handle-bar .splitter_handle,
-  &.splitter-handle-block .splitter_handle {
+  &.splitter-handle-bar > .splitter_handle,
+  &.splitter-handle-block > .splitter_handle {
     background-color: @handle_active;
   }
 }

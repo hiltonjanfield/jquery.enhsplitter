@@ -110,12 +110,12 @@
                         }
                     } else {
                         if (settings.orientation == 'horizontal') {
-                            if (+match[1] > this.height()) {
-                                match[1] = this.height();
+                            if (+match[1] > $(this).height()) {
+                                match[1] = $(this).height();
                             }
                         } else {
-                            if (+match[1] > this.width()) {
-                                match[1] = this.width();
+                            if (+match[1] > $(this).width()) {
+                                match[1] = $(this).width();
                             }
                         }
                         return +match[1]; // assume pixels for ANY suffix except '%', or lack thereof.
