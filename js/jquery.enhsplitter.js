@@ -32,8 +32,6 @@
         if (data) {
             return data;
         }
-        var panelOne;
-        var panelTwo;
         var settings = $.extend({
             limit: 100,
             orientation: 'vertical',
@@ -47,11 +45,14 @@
         }, options || {});
         this.settings = settings;
 
-        panelOne = $('<div class="splitter_panel"/>');
-        panelOne.append(this.children().first().detach()).prependTo(this);
-
-        panelTwo = $('<div class="splitter_panel"/>');
-        panelTwo.append(panelOne.next().detach()).insertAfter(panelOne);
+        // Wrap the existing child elements in invisible panels. These prevent unknown CSS from messing with the
+        // positioning code - padding, borders, etc. easily break the splitter.
+        var panelOne = $('<div class="splitter_panel"/>')
+            .append(this.children().first().detach())
+            .prependTo(this);
+        var panelTwo = $('<div class="splitter_panel"/>')
+            .append(panelOne.next().detach())
+            .insertAfter(panelOne);
 
         if (settings.orientation == 'horizontal') {
             this.addClass('splitter_container splitter-horizontal');
@@ -242,16 +243,20 @@
 
         self.bind('splitter.resize', function (e) {
             var pos = self.position();
-            if (self.orientation == 'vertical' &&
-                pos > self.width()) {
-                pos = self.width() - self.limit - 1;
-            } else if (self.orientation == 'horizontal' &&
-                pos > self.height()) {
-                pos = self.height() - self.limit - 1;
+            if (self.orientation == 'horizontal') {
+                if (pos > self.height() - limit - splitterHalf) {
+                    pos = self.height() - self.limit - 1;
+                }
+            } else {
+                if (pos > self.width() - limit - splitterHalf) {
+                    pos = self.width() - self.limit - 1;
+                }
             }
+
             if (pos < self.limit) {
                 pos = self.limit + 1;
             }
+
             self.position(pos, true);
         });
 
@@ -261,18 +266,18 @@
         if (settings.orientation == 'horizontal') {
             if (pos >= height - settings.limit - splitterHalf) {
                 pos = height - settings.limit - splitterHalf;
-                splitter.addClass('splitter-closed-bottom');
+                //splitter.addClass('splitter-closed-bottom');
             } else if (pos <= settings.limit) {
                 pos = settings.limit;
-                splitter.addClass('splitter-closed-top');
+                //splitter.addClass('splitter-closed-top');
             }
         } else {
             if (pos >= width - settings.limit - splitterHalf) {
-                pos = width - settings.limit - splitterHalf
-                splitter.addClass('splitter-closed-right');
+                pos = width - settings.limit - splitterHalf;
+                //splitter.addClass('splitter-closed-right');
             } else if (pos <= settings.limit) {
                 pos = settings.limit;
-                splitter.addClass('splitter-closed-left');
+                //splitter.addClass('splitter-closed-left');
             }
         }
 
