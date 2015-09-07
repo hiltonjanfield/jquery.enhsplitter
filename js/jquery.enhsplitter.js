@@ -20,7 +20,6 @@
  */
 (function ($, undefined) {
     var splitterCount = 0;
-    var splitterId = null;
     var handleId = null;
     var splitters = [];
     var currentSplitter = null;
@@ -43,7 +42,6 @@
             onDragEnd: $.noop,
             onDrag: $.noop
         }, options || {});
-        this.settings = settings;
 
         // Wrap the existing child elements in invisible panels. These prevent unknown CSS from messing with the
         // positioning code - padding, borders, etc. easily break the splitter.
@@ -84,28 +82,14 @@
         }
 
         var splitter = $('<div class="splitter splitter-handle-' + settings.handle + '"/>')
-            .bind('mouseenter touchstart', function () {
-                splitterId = id;
-            })
-            .bind('mouseleave touchend', function () {
-                splitterId = null;
-            })
             .insertAfter(panelOne);
+        var handle = $('<div class="splitter_handle"/>')
+            .appendTo(splitter);
 
         if (settings.invisible) {
             splitter.addClass('splitter-invisible');
         }
 
-        var handle = $('<div class="splitter_handle"/>')
-            .bind('mouseenter touchstart', function() {
-                handleId = splitterId;
-                splitterId = null;
-            })
-            .bind('mouseleave touchend', function() {
-                splitterId = handleId;
-                handleId = null;
-            })
-            .appendTo(splitter);
         var position;
 
         function get_position(position) {
@@ -115,7 +99,9 @@
                 var match = position.match(/^([0-9\.]+)(px|%)?$/);
                 if (match) {
                     if (match[2] && match[2] == '%') {
-                        if (+match[1] > 100) { match[1] = 100; }
+                        if (+match[1] > 100) {
+                            match[1] = 100;
+                        }
                         if (settings.orientation == 'horizontal') {
                             return (height * +match[1]) / 100;
                         } else {
@@ -204,18 +190,10 @@
             orientation: settings.orientation,
             limit: settings.limit,
             isActive: function () {
-                return splitterId === id;
+                return $(this).hasClass('splitter-active');
             },
             destroy: function () {
-                self.removeClass('splitter_panel');
-                splitter.unbind('mouseenter');
-                splitter.unbind('mouseleave');
-                splitter.unbind('touchstart');
-                splitter.unbind('touchmove');
-                splitter.unbind('touchend');
-                splitter.unbind('touchleave');
-                splitter.unbind('touchcancel');
-                handle.unbind('mouseup');
+                self.removeClass('splitter_container');
                 panelOne.removeClass('splitter_panel');
                 panelTwo.removeClass('splitter_panel');
                 self.unbind('splitter.resize');
@@ -232,8 +210,8 @@
                 }
                 //remove document events when no splitters
                 if (!not_null) {
-                    $(document.documentElement).unbind('.splitter');
-                    $(window).unbind('resize.splitter');
+                    $(document.documentElement).off('.splitter');
+                    $(window).off('.splitter');
                     self.data('splitter', null);
                     splitters = [];
                     splitterCount = 0;
@@ -284,71 +262,65 @@
         self.position(pos, true);
 
         if (splitters.length == 0) { // first time bind events to document
-            $(window).bind('resize.splitter', function () {
+            $(window).on('resize.splitter', function () {
                 $.each(splitters, function (i, splitter) {
                     splitter.refresh();
                 });
             });
 
             $(document.documentElement)
-                .bind('mouseup.splitter_handle', function (e) {
-                    if (handleId !== null) {
-                        currentSplitter = splitters[handleId];
-                        if (currentSplitter.data('position')) {
-                            var newPos = currentSplitter.data('position');
-                            currentSplitter.data('position', null);
-                        } else {
-                            if (currentSplitter.orientation == 'horizontal') {
-                                var pageY = e.pageY;
-                                var offset = currentSplitter.offset();
-                                if (e.originalEvent && e.originalEvent.changedTouches) {
-                                    pageY = e.originalEvent.changedTouches[0].pageY;
-                                }
-                                var y = pageY - offset.left;
-                                currentSplitter.data('position', y);
+                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter > .splitter_handle', function (e) {
+                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
+                    currentSplitter.data('handleClick', true);
+                })
+
+                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter', function (e) {
+                    e.preventDefault();
+                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
+                    currentSplitter.addClass('splitter-active');
+                    $('<div class="splitterMask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
+                    currentSplitter.settings.onDragStart(e);
+                    return true;
+                })
+
+                // Todo: Explore and test the touch events.
+                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitterMask', function (e) {
+                    if (currentSplitter) {
+                        e.preventDefault();
+                        if (currentSplitter.data('handleClick')) {
+                            currentSplitter.data('handleClick', null);
+
+                            if (currentSplitter.data('position')) {
+                                var newPos = currentSplitter.data('position');
+                                currentSplitter.data('position', null);
 
                             } else {
-                                var pageX = e.pageX;
-                                var offset = currentSplitter.offset();
-                                if (e.originalEvent && e.originalEvent.changedTouches) {
-                                    pageX = e.originalEvent.changedTouches[0].pageX;
-                                }
-                                var x = pageX - offset.left;
-                                currentSplitter.data('position', x);
+                                currentSplitter.data('position', currentSplitter.position());
+                                var newPos = currentSplitter.limit + 1;
                             }
-                            var newPos = currentSplitter.limit + 1;
+
+                            currentSplitter.position(newPos);
+                            currentSplitter.find('.splitter_panel').trigger('resize.splitter');
+                            e.preventDefault();
+                            currentSplitter.settings.onDrag(e);
+                        } else {
+                            currentSplitter.settings.onDragEnd(e);
+                            if (currentSplitter.position() == (currentSplitter.limit + 1)) {
+                                currentSplitter.data('position', currentSplitter.settings.position);
+                            }
                         }
-
-                        currentSplitter.position(newPos, true);
-                        //currentSplitter.find('.splitter_panel').trigger('resize.splitter');
-                        e.preventDefault();
-                        currentSplitter.settings.onDrag(e);
-                    }
-                })
-
-                .bind('mousedown.splitter touchstart.splitter', function (e) {
-                    if (splitterId !== null) {
-                        currentSplitter = splitters[splitterId];
-                        currentSplitter.addClass('splitter-active');
-                        $('<div class="splitterMask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
-                        currentSplitter.settings.onDragStart(e);
-                        return false;
-                    }
-                })
-
-                .bind('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function (e) {
-                    if (currentSplitter) {
                         $('.splitterMask').remove();
                         currentSplitter.removeClass('splitter-active');
-                        currentSplitter.settings.onDragEnd(e);
                         currentSplitter = null;
                     }
                 })
 
-                .bind('mousemove.splitter touchmove.splitter', function (e) {
+                .on('mousemove.splitter touchmove.splitter', '.splitterMask, .splitter_container', function (e) {
                     if (currentSplitter !== null) {
                         var limit = currentSplitter.limit;
                         var offset = currentSplitter.offset();
+                        currentSplitter.data('position', null);
+
                         if (currentSplitter.orientation == 'horizontal') {
                             var pageY = e.pageY;
                             if (e.originalEvent && e.originalEvent.changedTouches) {
@@ -389,6 +361,7 @@
                 });
         }
         splitters.push(self);
+        self.settings = settings;
         self.data('splitter', self);
         return self;
     };
