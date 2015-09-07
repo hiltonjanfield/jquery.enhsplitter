@@ -358,28 +358,21 @@
 
         <dt>handle</dt>
         <dd>
-            <code>['default'|'striped'|'none'|&lt;user-defined&gt;]</code>
+            <code>['default'|'block'|'largeblock'|'none'|&lt;user-defined&gt;]</code>
             <code class="default">Default: 'default'</code>
 
             <p>
                 Defines how the the collapse is drawn.
             </p>
             <ul>
-                <li><code>'default'</code> is a basic grey handle, as shown in the first two examples above.</li>
-                <li><code>'striped'</code> draws a basic striped handle, as shown in the third example above.</li>
+                <li><code>'default'</code> draws a striped handle, as shown in the first two examples above.</li>
+                <li><code>'bar'</code> draws a narrow grey bar, as shown in the third example above.</li>
+                <li><code>'block'</code> draws a wide grey block that fills the width of the splitter.</li>
                 <li><code>'none'</code> hides the handle completely, disabling it.</li>
                 <li>
                     <code>&lt;user-defined&gt;</code> - Identifier for any CSS class you create. By adding new
                     <code>.splitter-handle-</code> classes (see the CSS file), you can create custom styles without
                     overriding the standard ones.
-                    <br>
-                    The following CSS classes are required:
-                    <ul>
-                        <li><code>.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
-                        <li><code>.splitter-handle-<i>example</i> .splitter_handle:hover { }</code></li>
-                        <li><code>.splitter-vert.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
-                        <li><code>.splitter-horiz.splitter-handle-<i>example</i> .splitter_handle { }</code></li>
-                    </ul>
                 </li>
             </ul>
         </dd>

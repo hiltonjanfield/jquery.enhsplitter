@@ -23,8 +23,6 @@
   padding: 0 !important;
   height: 100%;
 
-  /* Splitter Panels */
-
   > .splitter_panel {
     position: absolute;
     overflow: auto;
@@ -72,128 +70,149 @@
     }
 
   }
+}
 
-  /* Splitter Bars */
+.splitter {
+  background-color: @splitter_color;
+  position: absolute;
+  padding: 0 !important;
+  box-sizing: border-box;
 
-  > .splitter {
-    background-color: @splitter_color;
-    position: absolute;
-    padding: 0 !important;
+  .splitter_handle {
+    cursor: pointer;
+    background-color: @handle_color;
+    position: relative;
+    margin: auto;
+    z-index: 1000;
     box-sizing: border-box;
 
-    > .splitter_handle {
-      cursor: pointer;
-      background-color: @handle_color;
-      position: relative;
-      margin: auto;
-      z-index: 1000;
-      box-sizing: border-box;
-
-      &:hover {
-        background-color: @handle_hover;
-        border-color: @handle_hover;
-      }
-
-      &:active {
-        background-color: @handle_active;
-        border-color: @handle_active;
-      }
+    &:hover {
+      background-color: @handle_hover;
+      border-color: @handle_hover;
     }
 
-    &.splitter-invisible {
-      background: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    &.splitter-invisible,
-    &.splitter-handle-none {
-      .splitter_handle {
-        display: none;
-      }
-    }
-  }
-
-  &.splitter-horizontal {
-    > .splitter {
-      border-top: 1px solid @splitter_highlight;
-      border-bottom: 1px solid @splitter_shadow;
-      cursor: ns-resize;
-      z-index: 800;
-      width: 100%;
-      height: @splitter_size;
-
-      .splitter_handle {
-        width: @handle_size;
-        height: @splitter_size - 4;
-        margin-top: 1px;
-      }
-
-      &.splitter-handle-striped {
-        .splitter_handle {
-          height: @splitter_size / 3;
-          margin-top: @splitter_size / 5;
-          border-top: @splitter_size / 5 solid @handle_color;
-          border-bottom: @splitter_size / 5 solid @handle_color;
-          background-color: transparent;
-
-          &:hover {
-            border-color: @handle_hover;
-          }
-
-          &:active {
-            border-color: @handle_active;
-          }
-        }
-      }
-    }
-  }
-
-  &.splitter-vertical {
-    > .splitter {
-      border-left: 1px solid @splitter_highlight;
-      border-right: 1px solid @splitter_shadow;
-      cursor: ew-resize;
-      z-index: 900;
-      width: @splitter_size;
-      height: 100%;
-
-      .splitter_handle {
-        width: @splitter_size - 4;
-        height: @handle_size;
-        top: 50%;
-        margin-top: -25px;
-      }
-
-      &.splitter-handle-striped {
-        .splitter_handle {
-          width: @splitter_size / 3;
-          border-left: @splitter_size / 5 solid @handle_color;
-          border-right: @splitter_size / 5 solid @handle_color;
-          background-color: transparent;
-
-          &:hover {
-            border-color: @handle_hover;
-          }
-
-          &:active {
-            border-color: @handle_active;
-          }
-        }
-      }
-    }
-  }
-
-  &.splitter-active > .splitter {
-    .splitter_handle {
+    &:active {
       background-color: @handle_active;
-    }
-
-    &.splitter-handle-striped .splitter_handle {
       border-color: @handle_active;
     }
   }
 
+  &.splitter-invisible {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  &.splitter-invisible,
+  &.splitter-handle-none {
+    .splitter_handle {
+      display: none;
+    }
+  }
+}
+
+.splitter-horizontal {
+  .splitter {
+    border-top: 1px solid @splitter_highlight;
+    border-bottom: 1px solid @splitter_shadow;
+    cursor: ns-resize;
+    z-index: 800;
+    width: 100%;
+    height: @splitter_size;
+
+    .splitter_handle {
+      width: @handle_size;
+    }
+
+    &.splitter-handle-default {
+      .splitter_handle {
+        height: 3px;
+        margin-top: 1px;
+        border-top: 1px solid @handle_color;
+        border-bottom: 1px solid @handle_color;
+        background-color: transparent;
+
+        &:hover {
+          border-color: @handle_hover;
+        }
+
+        &:active {
+          border-color: @handle_active;
+        }
+      }
+    }
+
+    &.splitter-handle-bar {
+      .splitter_handle {
+        height: 3px;
+        margin-top: 1px;
+      }
+    }
+
+    &.splitter-handle-block {
+      .splitter_handle {
+        height: @splitter_size - 2;
+        margin-top: 1px;
+      }
+    }
+  }
+}
+
+.splitter-vertical {
+  .splitter {
+    border-left: 1px solid @splitter_highlight;
+    border-right: 1px solid @splitter_shadow;
+    cursor: ew-resize;
+    z-index: 900;
+    width: @splitter_size;
+    height: 100%;
+
+    .splitter_handle {
+      top: 50%;
+      margin-top: -25px;
+      height: @handle_size;
+    }
+
+    &.splitter-handle-default {
+      .splitter_handle {
+        width: 3px;
+        border-left: 1px solid @handle_color;
+        border-right: 1px solid @handle_color;
+        background-color: transparent;
+
+        &:hover {
+          border-color: @handle_hover;
+        }
+
+        &:active {
+          border-color: @handle_active;
+        }
+      }
+    }
+
+    &.splitter-handle-bar {
+      .splitter_handle {
+        width: 3px;
+      }
+    }
+
+    &.splitter-handle-block {
+      .splitter_handle {
+        width: @splitter_size - 2;
+      }
+    }
+  }
+}
+
+.splitter_container.splitter-active .splitter {
+  .splitter_handle {
+    border-color: @handle_active;
+  }
+
+  &.splitter-handle-bar .splitter_handle,
+  &.splitter-handle-block .splitter_handle {
+    background-color: @handle_active;
+  }
 }
 
 .splitterMask {
@@ -204,3 +223,203 @@
   bottom: 0;
   z-index: 1001;
 }
+
+//
+//
+//.splitter_container {
+//  position: relative;
+//  overflow: hidden;
+//  /* Using !important to ensure random, generalized styles do not interfere with the layout. */
+//  padding: 0 !important;
+//  height: 100%;
+//
+//  /* Splitter Panels */
+//
+//  > .splitter_panel {
+//    position: absolute;
+//    overflow: auto;
+//    padding: 0;
+//    margin: 0;
+//
+//    > :not(.splitter_container) {
+//      overflow: auto;
+//      height: 100%;
+//    }
+//  }
+//
+//  &.splitter-horizontal {
+//    > .splitter_panel {
+//      left: 0;
+//      width: 100%;
+//    }
+//
+//    > .splitter_panel:first-child {
+//      /* Top panel */
+//      top: 0;
+//    }
+//
+//    > .splitter_panel ~ .splitter_panel {
+//      /* Bottom panel */
+//      bottom: 0;
+//    }
+//
+//  }
+//
+//  &.splitter-vertical {
+//    > .splitter_panel {
+//      top: 0;
+//      height: 100%;
+//    }
+//
+//    > .splitter_panel:first-child {
+//      /* Left panel */
+//      left: 0;
+//    }
+//
+//    > .splitter_panel ~ .splitter_panel {
+//      /* Right panel */
+//      right: 0;
+//    }
+//
+//  }
+//
+//  /* Splitter Bars */
+//
+//  > .splitter {
+//    background-color: @splitter_color;
+//    position: absolute;
+//    padding: 0 !important;
+//    box-sizing: border-box;
+//
+//    > .splitter_handle {
+//      cursor: pointer;
+//      background-color: @handle_color;
+//      position: relative;
+//      margin: auto;
+//      z-index: 1000;
+//      box-sizing: border-box;
+//
+//      &:hover {
+//        background-color: @handle_hover;
+//        border-color: @handle_hover;
+//      }
+//
+//      &:active {
+//        background-color: @handle_active;
+//        border-color: @handle_active;
+//      }
+//    }
+//
+//    &.splitter-invisible {
+//      background: none;
+//      border: none;
+//      box-shadow: none;
+//    }
+//
+//    &.splitter-invisible,
+//    &.splitter-handle-none {
+//      .splitter_handle {
+//        display: none;
+//      }
+//    }
+//  }
+//
+//  &.splitter-horizontal {
+//    > .splitter {
+//      border-top: 1px solid @splitter_highlight;
+//      border-bottom: 1px solid @splitter_shadow;
+//      cursor: ns-resize;
+//      z-index: 800;
+//      width: 100%;
+//      height: @splitter_size;
+//
+//      > .splitter_handle {
+//        width: @handle_size;
+//      }
+//
+//      &.splitter-handle-default {
+//        > .splitter_handle {
+//          height: @splitter_size / 3;
+//          margin-top: @splitter_size / 5;
+//          border-top: @splitter_size / 5 solid @handle_color;
+//          border-bottom: @splitter_size / 5 solid @handle_color;
+//          background-color: transparent;
+//
+//          &:hover {
+//            border-color: @handle_hover;
+//          }
+//
+//          &:active {
+//            border-color: @handle_active;
+//          }        }
+//      }
+//
+//      &.splitter-handle-bar {
+//        > .splitter_handle {
+//          height: @splitter_size - 4;
+//          margin-top: 1px;
+//        }
+//      }
+//    }
+//  }
+//
+//  &.splitter-vertical {
+//    > .splitter {
+//      border-left: 1px solid @splitter_highlight;
+//      border-right: 1px solid @splitter_shadow;
+//      cursor: ew-resize;
+//      z-index: 900;
+//      width: @splitter_size;
+//      height: 100%;
+//
+//      > .splitter_handle {
+//        top: 50%;
+//        margin-top: -25px;
+//        height: @handle_size;
+//      }
+//
+//      &.splitter-handle-default {
+//        > .splitter_handle {
+//          width: @splitter_size / 3;
+//          border-left: @splitter_size / 5 solid @handle_color;
+//          border-right: @splitter_size / 5 solid @handle_color;
+//          background-color: transparent;
+//
+//          &:hover {
+//            border-color: @handle_hover;
+//          }
+//
+//          &:active {
+//            border-color: @handle_active;
+//          }
+//        }
+//      }
+//
+//      &.splitter-handle-bar {
+//        > .splitter_handle {
+//          width: @splitter_size - 4;
+//        }
+//      }
+//    }
+//  }
+//
+//  &.splitter-active > .splitter {
+//    > .splitter_handle {
+//      border-color: @handle_active;
+//    }
+//
+//    &.splitter-handle-bar > .splitter_handle {
+//      background-color: @handle_active;
+//    }
+//  }
+//
+//}
+//
+//.splitterMask {
+//  position: fixed;
+//  left: 0;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  z-index: 1001;
+//}
