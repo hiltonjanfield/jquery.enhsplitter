@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * LESS / CSS File
- * Version 1.0.0
+ * Version 1.1.0
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -70,6 +70,14 @@
     }
 
   }
+
+  &.splitter-fixed > .splitter {
+    cursor: default;
+  }
+
+  &.splitter-handle-disabled > .splitter > .splitter_handle {
+    cursor: inherit;
+  }
 }
 
 .splitter {
@@ -98,15 +106,61 @@
   }
 
   &.splitter-invisible {
-    background: none;
-    border: none;
-    box-shadow: none;
+    background: none!important;
+    border: none!important;
+    box-shadow: none!important;
   }
 
   &.splitter-invisible,
   &.splitter-handle-none {
     .splitter_handle {
       display: none;
+    }
+  }
+}
+
+.splitter-vertical {
+  > .splitter {
+    border-left: 1px solid @splitter_highlight;
+    border-right: 1px solid @splitter_shadow;
+    cursor: ew-resize;
+    z-index: 900;
+    width: @splitter_size;
+    height: 100%;
+
+    > .splitter_handle {
+      top: 50%;
+      margin-top: -25px;
+      height: @handle_size;
+    }
+
+    &.splitter-handle-default {
+      > .splitter_handle {
+        width: 3px;
+        border-left: 1px solid @handle_color;
+        border-right: 1px solid @handle_color;
+        background-color: transparent;
+
+        &:hover {
+          border-color: @handle_hover;
+        }
+
+        &:active {
+          border-color: @handle_active;
+        }
+      }
+    }
+
+    &.splitter-handle-bar {
+      > .splitter_handle {
+        width: 3px;
+      }
+    }
+
+    &.splitter-handle-block {
+      > .splitter_handle {
+        width: @splitter_size - 2;
+      }
     }
   }
 }
@@ -153,52 +207,6 @@
       > .splitter_handle {
         height: @splitter_size - 2;
         margin-top: 1px;
-      }
-    }
-  }
-}
-
-.splitter-vertical {
-  > .splitter {
-    border-left: 1px solid @splitter_highlight;
-    border-right: 1px solid @splitter_shadow;
-    cursor: ew-resize;
-    z-index: 900;
-    width: @splitter_size;
-    height: 100%;
-
-    > .splitter_handle {
-      top: 50%;
-      margin-top: -25px;
-      height: @handle_size;
-    }
-
-    &.splitter-handle-default {
-      > .splitter_handle {
-        width: 3px;
-        border-left: 1px solid @handle_color;
-        border-right: 1px solid @handle_color;
-        background-color: transparent;
-
-        &:hover {
-          border-color: @handle_hover;
-        }
-
-        &:active {
-          border-color: @handle_active;
-        }
-      }
-    }
-
-    &.splitter-handle-bar {
-      > .splitter_handle {
-        width: 3px;
-      }
-    }
-
-    &.splitter-handle-block {
-      > .splitter_handle {
-        width: @splitter_size - 2;
       }
     }
   }

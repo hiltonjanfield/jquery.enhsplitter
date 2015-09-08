@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * LESS / CSS File
- * Version 1.0.0
+ * Version 1.1.0
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -47,6 +47,12 @@
   /* Right panel */
   right: 0;
 }
+.splitter_container.splitter-fixed > .splitter {
+  cursor: default;
+}
+.splitter_container.splitter-handle-disabled > .splitter > .splitter_handle {
+  cursor: inherit;
+}
 .splitter {
   background-color: #c0c0c0;
   position: absolute;
@@ -70,13 +76,44 @@
   border-color: #000000;
 }
 .splitter.splitter-invisible {
-  background: none;
-  border: none;
-  box-shadow: none;
+  background: none!important;
+  border: none!important;
+  box-shadow: none!important;
 }
 .splitter.splitter-invisible .splitter_handle,
 .splitter.splitter-handle-none .splitter_handle {
   display: none;
+}
+.splitter-vertical > .splitter {
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #666666;
+  cursor: ew-resize;
+  z-index: 900;
+  width: 7px;
+  height: 100%;
+}
+.splitter-vertical > .splitter > .splitter_handle {
+  top: 50%;
+  margin-top: -25px;
+  height: 50px;
+}
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle {
+  width: 3px;
+  border-left: 1px solid #999999;
+  border-right: 1px solid #999999;
+  background-color: transparent;
+}
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:hover {
+  border-color: #666666;
+}
+.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:active {
+  border-color: #000000;
+}
+.splitter-vertical > .splitter.splitter-handle-bar > .splitter_handle {
+  width: 3px;
+}
+.splitter-vertical > .splitter.splitter-handle-block > .splitter_handle {
+  width: 5px;
 }
 .splitter-horizontal > .splitter {
   border-top: 1px solid #eeeeee;
@@ -109,37 +146,6 @@
 .splitter-horizontal > .splitter.splitter-handle-block > .splitter_handle {
   height: 5px;
   margin-top: 1px;
-}
-.splitter-vertical > .splitter {
-  border-left: 1px solid #eeeeee;
-  border-right: 1px solid #666666;
-  cursor: ew-resize;
-  z-index: 900;
-  width: 7px;
-  height: 100%;
-}
-.splitter-vertical > .splitter > .splitter_handle {
-  top: 50%;
-  margin-top: -25px;
-  height: 50px;
-}
-.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle {
-  width: 3px;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  background-color: transparent;
-}
-.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:hover {
-  border-color: #666666;
-}
-.splitter-vertical > .splitter.splitter-handle-default > .splitter_handle:active {
-  border-color: #000000;
-}
-.splitter-vertical > .splitter.splitter-handle-bar > .splitter_handle {
-  width: 3px;
-}
-.splitter-vertical > .splitter.splitter-handle-block > .splitter_handle {
-  width: 5px;
 }
 .splitter_container.splitter-active > .splitter {
   z-index: 1000;

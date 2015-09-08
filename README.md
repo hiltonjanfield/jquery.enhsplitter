@@ -1,11 +1,18 @@
 # jQuery Enhanced Splitter
 
 jquery.enhsplitter is a plugin to generate sliding splitters on your page. Useful for separating content, emulating the
-look of frames, and more. Completely customizable look and feel, and touchscreen friendly.
+look of frames, collapsable tool windows, and more. Completely customizable look and feel, and touchscreen friendly.
+
+Release v1.1.0
+------
+
+This release adds a number of new options, as well as a few fixes and overall UX improvements.
+But since nobody is using this yet, I won't bother documenting all the changes here. Rest assured that any changes
+from here forward will be properly documented!
 
 # Demo
 
-Demo and basic documentation is available at:
+A demo and basic documentation of options are available at:
 
 <http://janfield.ca/github/jquery.enhsplitter/demo.html>
 
@@ -51,7 +58,7 @@ available options.
 ```javascript
 jQuery(function ($) {
     $('#panels').enhsplitter({
-        orientation: 'horizontal',
+        vertical: true,
         limit: 125,
         handle: 'striped'
     });

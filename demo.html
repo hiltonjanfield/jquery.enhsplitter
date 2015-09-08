@@ -119,9 +119,9 @@
 
     <script>
         jQuery(function ($) {
-            $('#demoOne').enhsplitter({limit: 50, orientation: 'horizontal'});
+            $('#demoOne').enhsplitter({limit: 50, vertical: false});
             $('#demoOneB').enhsplitter();
-            $('#demoThree').enhsplitter({handle: 'bar', position: '150px', limit: 0});
+            $('#demoThree').enhsplitter({handle: 'bar', position: 150, lowerLimit: 0, fixed: true});
         });
     </script>
 </head>
@@ -136,7 +136,7 @@
         </p>
 
         <p>
-            This splitter is set with <code>{limit: 50, orientation: 'horizontal'}</code>.
+            This splitter is set with <code>{limit: 50, vertical: false}</code>.
             This is the lower pane of the outer splitter; the two panels and splitter above are contained within the
             upper panel of this splitter.
         </p>
@@ -175,17 +175,19 @@
         <h4>#demoThreeA</h4>
 
         <p>
-            Sidebar Example!
+            Sidebar Example with fixed splitter.
         </p>
     </div>
     <div id="demoThreeB">
         <h4>#demoThreeB</h4>
 
         <p>
-            This splitter was created using with the options <code>{handle: 'bar', position: '150px', limit:
-            0}</code>. <code>position</code> defines a starting size for the left or upper panel, <code>limit</code>
-            defines how small the panels may get, while <code>handle</code> sets up a different effect for the collapse
-            handle.
+            This splitter was created using with the options <code>{handle: 'bar', position: 150, lowerLimit: 0,
+            upperLimit: 150, fixed: true}</code>. <code>position</code> defines a starting size,
+            <code>{limit, lowerLimit, and upperLimit}</code> define how small the panels may get, and
+            <code>handle</code> sets up a different effect for the collapse handle. The <code>{fixed: true}</code>
+            option disables the ability to drag the splitter around, while leaving the collapse options intact - the
+            result being an unmovable bar with a button that collapses it back and forth.
         </p>
 
         <p style="color: #888888;">
@@ -240,14 +242,16 @@
     jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
         $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).enhsplitter({limit<span
                 style="color: #333333">:</span> <span
-                style="color: #0000DD; font-weight: bold">50</span>, orientation<span
-                style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;horizontal&#39;</span>});
+                style="color: #0000DD; font-weight: bold">50</span>, vertical<span
+                style="color: #333333">:</span> <span style="background-color: #fff0f0">false</span>});
         $(<span style="background-color: #fff0f0">&#39;#demoOneB&#39;</span>).enhsplitter();
         $(<span style="background-color: #fff0f0">&#39;#demoThree&#39;</span>).enhsplitter({handle<span
                 style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;bar&#39;</span>, position<span
                 style="color: #333333">:</span> <span
-                style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
-                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
+                style="background-color: #fff0f0">150</span>, lowerLimit<span
+                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>, upperLimit<span
+                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">150</span>, fixed<span
+                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">true</span>});
     });
 <span style="color: #770000">&lt;/script&gt;</span>
 </pre>
@@ -311,34 +315,63 @@
 
     <h1>Options</h1>
     <dl>
-        <dt>orientation</dt>
+        <dt>vertical</dt>
         <dd>
-            <code>['vertical'|'horizontal']</code>
-            <code class="default">Default: 'vertical'</code>
+            <code>[true|false]</code>
+            <code class="default">Default: true</code>
 
-            <p>If not defined or invalid, defaults to <code>vertical</code>.</p>
+            <p>
+                Determines whether the splitter is vertical or horizontal.
+            </p>
         </dd>
 
         <dt>limit</dt>
         <dd>
-            <code>[integer]</code>
+            <code>[number]</code>
             <code class="default">Default: 100</code>
 
             <p>
-                Defines the minimum size for both panels in pixels. In the examples above, the vertical splitter
+                Defines the minimum size for both panels, in pixels. In the examples above, the vertical splitter
                 between the yellow and red panes is set with <code>{limit: 25}</code>, while the horizontal splitter
                 between those and the purple pane is set with <code>{limit: 50}</code>.
+            </p>
+
+            <p>
+                This option is a shortcut to set both <code>{lowerLimit}</code> and <code>{upperLimit}</code>
+                at the same time, to the same value.
+            </p>
+        </dd>
+
+        <dt>lowerLimit</dt>
+        <dd>
+            <code>[number]</code>
+            <code class="default">Default: 100</code>
+
+            <p>
+                Defines the minimum size for the left panel in a vertical splitter, or the top panel in a horizontal
+                splitter.
+            </p>
+        </dd>
+
+        <dt>upperLimit</dt>
+        <dd>
+            <code>[number]</code>
+            <code class="default">Default: 100</code>
+
+            <p>
+                Defines the minimum size for the right panel in a vertical splitter, or the bottom panel in a horizontal
+                splitter.
             </p>
         </dd>
 
         <dt>position</dt>
         <dd>
-            <code>[integer (px)|string (px|%)]</code>
+            <code>[number (px)|string (px|%)]</code>
             <code class="default">Default: '50%'</code>
 
             <p>
                 Sets the starting size for the left or top panel. Position can be defined in pixels by passing an
-                integer <code>{position: 125}</code>, or a string with a 'px' suffix <code>{position: '125px'}</code>,
+                number <code>{position: 125}</code>, or a string with a 'px' suffix <code>{position: '125px'}</code>,
                 or as a percentage as a string with a '%' suffix. <code>{position: '25%'}</code>. Strings without a
                 suffix will be assumed to be in pixels.
             </p>
@@ -367,7 +400,8 @@
                 <li><code>'default'</code> draws a striped handle, as shown in the first two examples above.</li>
                 <li><code>'bar'</code> draws a narrow grey bar, as shown in the third example above.</li>
                 <li><code>'block'</code> draws a wide grey block that fills the width of the splitter.</li>
-                <li><code>'none'</code> hides the handle completely, disabling it.</li>
+                <li><code>'none'</code> hides the handle completely, disabling it. This effect is also achieved
+                when setting <code>{invisible: true}</code>;  it is not necessary to set both.</li>
                 <li>
                     <code>&lt;user-defined&gt;</code> - Identifier for any CSS class you create. By adding new
                     <code>.splitter-handle-</code> classes (see the CSS file), you can create custom styles without
@@ -375,20 +409,65 @@
                 </li>
             </ul>
         </dd>
-        
-        <dt>height</dt>
+
+        <dt>collapse</dt>
         <dd>
-            <code>[integer (pixels)|css value]</code>
-            <code class="default">Default: <em>none</em></code>
+            <code>['left'|'right'|'up'|'down'|'none']</code>
+            <code class="default">Default: true</code>
 
             <p>
-                Specifies the height of the container. Pixels will be assumed for integer values, otherwise
-                any CSS value can be used.
+                Determines which direction the panel collapses when the handle is clicked.
+                Setting <code>{collapse: 'none'}</code> leaves the handle visible while disabling its
+                functionality, leaving the handle and hover/active effects in place for standard dragging.
+            </p>
+        </dd>
+
+        <dt>fixed</dt>
+        <dd>
+            <code>[true|false]</code>
+            <code class="default">Default: false</code>
+
+            <p>
+                Fixes the splitter in place by disabling dragging. This option does not affect the collapse handle.
             </p>
 
             <p>
+                This option is useful for creating fixed width navigation, tool, or other bars. When the options
+                <code>{position: 150, lowerLimit: 0, fixed: true}</code> are used together, it creates a splitter
+                with a narrow panel (in this case 150px) that cannot be resized, but is completely hidden when the
+                collapse handle is clicked (and vice versa).
+            </p>
+        </dd>
+
+        <dt>height</dt>
+        <dd>
+            <code>[number (pixels)|css value]</code>
+            <code class="default">Default: <em>none</em></code>
+
+            <p>
+                Specifies the height of the container.
+            </p>
+            <p>
+                Any CSS value can be used; numbers with no suffix will be treated as pixel values.
+            </p>
+            <p>
                 In the instance that the both the container and parent heights have not been specified, the CSS on
                 the container will cause the height to become 0. If this happens, height will default to 10em.
+            </p>
+        </dd>
+
+        <dt>splitterSize</dt>
+        <dd>
+            <code>[number (pixels)|css value]</code>
+            <code class="default">Default: <em>none (defined by CSS)</em></code>
+
+            <p>
+                Specifies the size of the splitter bar, allowing some limited customization for individual splitters
+                without custom CSS. Ideal when paired with <code>{invisible: true}</code>, also useful for increasing
+                the splitter size on mobile sites (for easier use on touch devices).
+            </p>
+            <p>
+                Any CSS value can be used; numbers with no suffix will be treated as pixel values.
             </p>
         </dd>
 
