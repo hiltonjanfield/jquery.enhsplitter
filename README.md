@@ -14,7 +14,7 @@ This release adds a number of new options, as well as a few fixes and overall UX
 - Fixed a few bugs.
 - Significantly rewrote event handling, now smoother, faster, and tastier.
 
-## Branch v1.1.1
+## Branch v1.2.0
 
 Changes made so far.
 - (UX improvement) Implemented drag-delay if the user clicks on the collapse handle then starts dragging.
