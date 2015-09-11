@@ -1,0 +1,27 @@
+{
+  "name": "jquery.enhsplitter",
+  "version": "1.1.0",
+  "description": "Enhanced splitter bar for separation of content, tool bars, frame emulation, and more.",
+  "main": "js/jquery.enhsplitter.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiltonjanfield/jquery.enhsplitter.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "splitter",
+    "frames",
+    "frameset",
+    "divider"
+  ],
+  "author": "Hilton Janfield",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hiltonjanfield/jquery.enhsplitter/issues"
+  },
+  "homepage": "https://github.com/hiltonjanfield/jquery.enhsplitter#readme"
+}

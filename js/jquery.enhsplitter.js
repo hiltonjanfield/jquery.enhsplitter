@@ -22,6 +22,8 @@
     var splitterCount = 0;
     var splitters = [];
     var currentSplitter = null;
+    var dragStartPosition = null;
+    var disableClick = false;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -221,6 +223,11 @@
 
             $(document.documentElement)
                 .on('click.splitter', '.splitter_handle', function (e) {
+                    // Prevent clicks if the user started dragging too much.
+                    // Some (all?) browsers fire the click event even after the bar has been dragged hundreds of pixels.
+                    if (disableClick) {
+                        return disableClick = false;
+                    }
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
 
                     if (currentSplitter.settings.collapsable) {
@@ -252,6 +259,15 @@
                     currentSplitter = null;
                 })
 
+                .on('mousedown.splitter', '.splitter_handle', function (e) {
+                    e.preventDefault();
+                    // This mousedown event gets called first because it is on top, but we need the other one to fire
+                    // first - or duplicate the code, which is bad, m'kay?
+                    $(this).closest('.splitter').trigger('mousedown');
+
+                    dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                })
+
                 .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter', function (e) {
                     e.preventDefault();
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
@@ -264,10 +280,10 @@
                     }
                 })
 
-                // Todo: Explore and test the touch events.
                 .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
+                        dragStartPosition = null;
 
                         // If the slider is dropped near it's collapsed position, set a saved position back to its
                         // original start position so the collapse handle works somewhat properly.
@@ -299,23 +315,33 @@
                     if (currentSplitter !== null) {
                         currentSplitter.data('savedPosition', null);
 
+                        var position = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                        if (e.originalEvent && e.originalEvent.changedTouches) {
+                            position = (currentSplitter.settings.vertical) ? e.originalEvent.changedTouches[0].pageX : e.originalEvent.changedTouches[0].pageY;
+                        }
+
+                        // If the user started the drag with a mousedown on the handle, give it a 5-pixel delay.
+                        if (dragStartPosition !== null) {
+                            if (position > (dragStartPosition + 5) || position < (dragStartPosition - 5)) {
+                                dragStartPosition = null;
+                                disableClick = true;
+                            } else {
+                                e.preventDefault();
+                                return false;
+                            }
+                        }
+
                         if (currentSplitter.settings.vertical) {
-                            var pageX = e.pageX;
-                            if (e.originalEvent && e.originalEvent.changedTouches) {
-                                pageX = e.originalEvent.changedTouches[0].pageX;
-                            }
-                            currentSplitter.setPosition(pageX - currentSplitter.offset().left - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().left);
                         } else {
-                            var pageY = e.pageY;
-                            if (e.originalEvent && e.originalEvent.changedTouches) {
-                                pageY = e.originalEvent.changedTouches[0].pageY;
-                            }
-                            currentSplitter.setPosition(pageY - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
                         }
                         e.preventDefault();
                         currentSplitter.settings.onDrag(e);
                     }
-                });
+                }
+            )
+            ;
         }
 
         self.settings = settings;
@@ -327,5 +353,7 @@
 
         splitters.push(self);
         return self;
-    };
-})(jQuery);
+    }
+    ;
+})
+(jQuery);
