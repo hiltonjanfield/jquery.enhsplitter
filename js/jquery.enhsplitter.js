@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * Main ECMAScript File
- * Version 1.1.0
+ * Version 1.1.1
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
