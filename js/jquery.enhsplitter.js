@@ -75,7 +75,7 @@
             this.css('height', settings.height);
         }
 
-        // Verify the limits are within allowed constaints (size of panel)
+        // Verify the limits are within allowed constraints (size of panel)
         // With a little obfuscation to reduce 36 lines to 3
         settings.limit = (settings.limit < 0 ? 0 : (settings.vertical ? (settings.limit > (this.width() / 2) ? this.width() / 2 : settings.limit) : (settings.limit > (this.height() / 2) ? this.height() / 2 : settings.limit)));
         // Once settings.limit has been range checked, use it as a default for lowerLimit and upperLimit.
