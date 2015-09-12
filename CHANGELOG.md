@@ -4,10 +4,9 @@
 
 Changes made so far over v1.1.0.
 - Updated composer.json to specify valid jQuery versions (1.8+ / 2.0+).
-- (UX improvement) Implemented drag-delay if the user clicks on the collapse handle then starts dragging.
-  Drag will not begin until mouse has moved past 5 pixels in either direction.
-- (UX improvement) Prevent click event if the user started and ended their drag on the collapse handle.
-- Respect CSS min/max-width/height.
+- Implemented drag-delay if the user clicks on the collapse handle then starts dragging. Drag will not begin until mouse has moved past 5 pixels in either direction. (UX improvement)
+- Prevent click event if the user started and ended their drag on the collapse handle. (UX improvement)
+- Change splitter bar class from .splitter to .splitter_bar for consistency.
 
 ## Release v1.1.0
 

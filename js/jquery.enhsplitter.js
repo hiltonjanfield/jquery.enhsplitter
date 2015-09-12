@@ -98,7 +98,7 @@
             this.addClass('splitter-fixed');
         }
 
-        splitter = $('<div class="splitter splitter-handle-' + settings.handle + '"/>')
+        splitter = $('<div class="splitter_bar splitter-handle-' + settings.handle + '"/>')
             .insertAfter(panelOne);
         handle = $('<div class="splitter_handle"/>')
             .appendTo(splitter);
@@ -264,12 +264,12 @@
                     e.preventDefault();
                     // This mousedown event gets called first because it is on top, but we need the other one to fire
                     // first - or duplicate the code, which is bad, m'kay?
-                    $(this).closest('.splitter').trigger('mousedown');
+                    $(this).closest('.splitter_bar').trigger('mousedown');
 
                     dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
                 })
 
-                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter', function (e) {
+                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter_bar', function (e) {
                     e.preventDefault();
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
                     if (currentSplitter.settings.fixed) {
@@ -281,7 +281,7 @@
                     }
                 })
 
-                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter', function (e) {
+                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter_bar', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
                         dragStartPosition = null;
@@ -315,7 +315,7 @@
                     }
                 })
 
-                .on('mousemove.splitter touchmove.splitter', '.splitter_mask, .splitter', function (e) {
+                .on('mousemove.splitter touchmove.splitter', '.splitter_mask, .splitter_bar', function (e) {
                     if (currentSplitter !== null) {
                         currentSplitter.data('savedPosition', null);
 
