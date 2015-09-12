@@ -7,6 +7,8 @@ Changes made so far over v1.1.0.
 - Implemented drag-delay if the user clicks on the collapse handle then starts dragging. Drag will not begin until mouse has moved past 5 pixels in either direction. (UX improvement)
 - Prevent click event if the user started and ended their drag on the collapse handle. (UX improvement)
 - Change splitter bar class from .splitter to .splitter_bar for consistency.
+- Fixed issue where collapse handle would ignore one click if manually dragged to the collapsed position. (UX improvement/bug)
+- Modified onDrag, onDragStart, onDragEnd events to pass splitter container for easy manipulation.
 
 ## Release v1.1.0
 

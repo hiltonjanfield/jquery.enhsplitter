@@ -254,7 +254,7 @@
                         currentSplitter.find('.splitter_panel').trigger('resize.splitter');
                         e.preventDefault();
                         $('.splitter_mask').remove();
-                        currentSplitter.settings.onDrag(e);
+                        currentSplitter.settings.onDrag(e, currentSplitter);
                     }
                     currentSplitter.removeClass('splitter-active');
                     currentSplitter = null;
@@ -277,7 +277,7 @@
                     } else {
                         currentSplitter.addClass('splitter-active');
                         $('<div class="splitter_mask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
-                        currentSplitter.settings.onDragStart(e);
+                        currentSplitter.settings.onDragStart(e, currentSplitter);
                     }
                 })
 
@@ -309,7 +309,7 @@
                             }
                         }
                         $('.splitter_mask').remove();
-                        currentSplitter.settings.onDragEnd(e);
+                        currentSplitter.settings.onDragEnd(e, currentSplitter);
                         currentSplitter.removeClass('splitter-active');
                         currentSplitter = null;
                     }
@@ -341,7 +341,7 @@
                             currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
                         }
                         e.preventDefault();
-                        currentSplitter.settings.onDrag(e);
+                        currentSplitter.settings.onDrag(e, currentSplitter);
                     }
                 }
             );
