@@ -2,7 +2,7 @@
 
 ## Branch v1.2.0
 
-Changes made so far over v1.1.0.
+A few bug fixes and minor enhancements, with small breaking changes signifying the minor version increment.
 - Updated composer.json to specify valid jQuery versions (1.8+ / 2.0+).
 - Implemented drag-delay if the user clicks on the collapse handle then starts dragging. Drag will not begin until mouse has moved past 5 pixels in either direction. (UX improvement)
 - Prevent click event if the user started and ended their drag on the collapse handle. (UX improvement)
