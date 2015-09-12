@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * LESS / CSS File
- * Version 1.1.0
+ * Version 1.2.0
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -71,16 +71,16 @@
 
   }
 
-  &.splitter-fixed > .splitter {
+  &.splitter-fixed > .splitter_bar {
     cursor: default;
   }
 
-  &.splitter-handle-disabled > .splitter > .splitter_handle {
+  &.splitter-handle-disabled > .splitter_bar > .splitter_handle {
     cursor: inherit;
   }
 }
 
-.splitter {
+.splitter_bar {
   background-color: @splitter_color;
   position: absolute;
   padding: 0 !important;
@@ -120,7 +120,7 @@
 }
 
 .splitter-vertical {
-  > .splitter {
+  > .splitter_bar {
     border-left: 1px solid @splitter_highlight;
     border-right: 1px solid @splitter_shadow;
     cursor: ew-resize;
@@ -166,7 +166,7 @@
 }
 
 .splitter-horizontal {
-  > .splitter {
+  > .splitter_bar {
     border-top: 1px solid @splitter_highlight;
     border-bottom: 1px solid @splitter_shadow;
     cursor: ns-resize;
@@ -212,7 +212,7 @@
   }
 }
 
-.splitter_container.splitter-active > .splitter {
+.splitter_container.splitter-active > .splitter_bar {
   z-index: 1000; /* Important to keep z-index of active splitter above .splitterMask. */
 
   > .splitter_handle {

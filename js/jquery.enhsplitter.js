@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * Main ECMAScript File
- * Version 1.1.0
+ * Version 1.2.0
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -22,6 +22,8 @@
     var splitterCount = 0;
     var splitters = [];
     var currentSplitter = null;
+    var dragStartPosition = null;
+    var disableClick = false;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -75,7 +77,7 @@
             this.css('height', settings.height);
         }
 
-        // Verify the limits are within allowed constaints (size of panel)
+        // Verify the limits are within allowed constraints (size of panel)
         // With a little obfuscation to reduce 36 lines to 3
         settings.limit = (settings.limit < 0 ? 0 : (settings.vertical ? (settings.limit > (this.width() / 2) ? this.width() / 2 : settings.limit) : (settings.limit > (this.height() / 2) ? this.height() / 2 : settings.limit)));
         // Once settings.limit has been range checked, use it as a default for lowerLimit and upperLimit.
@@ -96,7 +98,7 @@
             this.addClass('splitter-fixed');
         }
 
-        splitter = $('<div class="splitter splitter-handle-' + settings.handle + '"/>')
+        splitter = $('<div class="splitter_bar splitter-handle-' + settings.handle + '"/>')
             .insertAfter(panelOne);
         handle = $('<div class="splitter_handle"/>')
             .appendTo(splitter);
@@ -213,7 +215,8 @@
 
         // If this is the first splitter, set up our events.
         if (splitters.length == 0) {
-            $(window).on('resize.splitter', function () {
+            $(window)
+                .on('resize.splitter', function () {
                 $.each(splitters, function (i, splitter) {
                     splitter.refresh();
                 });
@@ -221,6 +224,11 @@
 
             $(document.documentElement)
                 .on('click.splitter', '.splitter_handle', function (e) {
+                    // Prevent clicks if the user started dragging too much.
+                    // Some (all?) browsers fire the click event even after the bar has been dragged hundreds of pixels.
+                    if (disableClick) {
+                        return disableClick = false;
+                    }
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
 
                     if (currentSplitter.settings.collapsable) {
@@ -246,13 +254,22 @@
                         currentSplitter.find('.splitter_panel').trigger('resize.splitter');
                         e.preventDefault();
                         $('.splitter_mask').remove();
-                        currentSplitter.settings.onDrag(e);
+                        currentSplitter.settings.onDrag(e, currentSplitter);
                     }
                     currentSplitter.removeClass('splitter-active');
                     currentSplitter = null;
                 })
 
-                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter', function (e) {
+                .on('mousedown.splitter', '.splitter_handle', function (e) {
+                    e.preventDefault();
+                    // This mousedown event gets called first because it is on top, but we need the other one to fire
+                    // first - or duplicate the code, which is bad, m'kay?
+                    $(this).closest('.splitter_bar').trigger('mousedown');
+
+                    dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                })
+
+                .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter_bar', function (e) {
                     e.preventDefault();
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
                     if (currentSplitter.settings.fixed) {
@@ -260,72 +277,84 @@
                     } else {
                         currentSplitter.addClass('splitter-active');
                         $('<div class="splitter_mask"></div>').css('cursor', currentSplitter.children().eq(1).css('cursor')).insertAfter(currentSplitter);
-                        currentSplitter.settings.onDragStart(e);
+                        currentSplitter.settings.onDragStart(e, currentSplitter);
                     }
                 })
 
-                // Todo: Explore and test the touch events.
-                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter', function (e) {
+                .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter_bar', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
+                        dragStartPosition = null;
 
                         // If the slider is dropped near it's collapsed position, set a saved position back to its
-                        // original start position so the collapse handle works somewhat properly.
+                        // original start position so the collapse handle works at least somewhat properly.
                         if (!currentSplitter.data('savedPosition')) {
                             if (currentSplitter.settings.collapseNormal) {
                                 if (currentSplitter.currentPosition <= (currentSplitter.settings.lowerLimit + 5)) {
                                     currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                    disableClick = false;
                                 }
                             } else {
                                 if (currentSplitter.settings.vertical) {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerWidth - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                        disableClick = false;
                                     }
                                 } else {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerHeight - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                        disableClick = false;
                                     }
                                 }
                             }
                         }
                         $('.splitter_mask').remove();
-                        currentSplitter.settings.onDragEnd(e);
+                        currentSplitter.settings.onDragEnd(e, currentSplitter);
                         currentSplitter.removeClass('splitter-active');
                         currentSplitter = null;
                     }
                 })
 
-                .on('mousemove.splitter touchmove.splitter', '.splitter_mask, .splitter', function (e) {
+                .on('mousemove.splitter touchmove.splitter', '.splitter_mask, .splitter_bar', function (e) {
                     if (currentSplitter !== null) {
                         currentSplitter.data('savedPosition', null);
 
+                        var position = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                        if (e.originalEvent && e.originalEvent.changedTouches) {
+                            position = (currentSplitter.settings.vertical) ? e.originalEvent.changedTouches[0].pageX : e.originalEvent.changedTouches[0].pageY;
+                        }
+
+                        // If the user started the drag with a mousedown on the handle, give it a 5-pixel delay.
+                        if (dragStartPosition !== null) {
+                            if (position > (dragStartPosition + 5) || position < (dragStartPosition - 5)) {
+                                dragStartPosition = null;
+                                disableClick = true;
+                            } else {
+                                e.preventDefault();
+                                return false;
+                            }
+                        }
+
                         if (currentSplitter.settings.vertical) {
-                            var pageX = e.pageX;
-                            if (e.originalEvent && e.originalEvent.changedTouches) {
-                                pageX = e.originalEvent.changedTouches[0].pageX;
-                            }
-                            currentSplitter.setPosition(pageX - currentSplitter.offset().left - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().left - currentSplitter.splitterSizeHalf);
                         } else {
-                            var pageY = e.pageY;
-                            if (e.originalEvent && e.originalEvent.changedTouches) {
-                                pageY = e.originalEvent.changedTouches[0].pageY;
-                            }
-                            currentSplitter.setPosition(pageY - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
                         }
                         e.preventDefault();
-                        currentSplitter.settings.onDrag(e);
+                        currentSplitter.settings.onDrag(e, currentSplitter);
                     }
-                });
+                }
+            );
         }
 
         self.settings = settings;
 
-        // Initial position of the splitter itself.
+        // Set the initial position of the splitter.
         self.setPosition(self.translatePosition(settings.position));
 
         self.data('splitter', self);
-
         splitters.push(self);
         return self;
     };
-})(jQuery);
+})
+(jQuery);
