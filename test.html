@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>jQuery Splitter Features Test</title>
+    <meta name="Description" content="jQuery Splitter Demo"/>
+    <link rel="shortcut icon" href=""/>
+    <!--<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+    <script src="js/jquery.enhsplitter.js"></script>
+    <link href="css/jquery.enhsplitter.css" rel="stylesheet"/>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+        body {
+            font: normal 13px Arial, Helvetica, sans-serif;
+            margin: 1em;
+        }
+
+        hr {
+            border-top: 4px solid black;
+            height: 0;
+        }
+
+        .splitter_panel > div {
+            padding: 0 1em;
+        }
+
+        .box {
+            margin-top: 2em;
+            border-top: 4px solid black;
+            padding: 1em;
+        }
+
+        .box .panel {
+            width: 40%;
+            border: 4px solid silver;
+            box-shadow: 0 0 0 1px black;
+        }
+
+        .splitter_panel {
+            background-color: red;
+        }
+
+        .splitter_panel div {
+            background-color: dodgerblue;
+            font-weight: bold;
+        }
+
+        .splitter_panel:last-child div {
+            background-color: orange;
+        }
+
+        .box .info {
+            width: 50%;
+            float: right;
+            margin-right: 5%;
+        }
+
+        .box .info code {
+            font: normal 12px Consolas, "Source Code Pro", "Courier New", mono;
+            display: block;
+            font-size: 90%;
+            margin-bottom: 0.5em;
+        }
+
+        br {
+            line-height: 2.5em;
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>jquery.enhsplitter Features Tests</h1>
+
+<p>
+    <a href="demo.html">Demo and Documentation</a>.
+    This test file uses jQuery 1.8.0, the minimum required version, to ensure there are no version compatibility breaks.
+</p>
+
+<script>
+    addTest(
+            {},
+            'Basic splitter with strictly default options.<br>' +
+            'All splitters should not begin moving until dragged at least 5 pixels if the drag started on the handle; they should start moving immediately otherwise.'
+    );
+
+    addTest(
+            {height: '7em', handle: 'none'},
+            'Basic splitter with the total panel height fixed to 7em (shorter than the default applied to all the other panels).<br>Handle should not exist.'
+    );
+
+    addTest(
+            {limit: 0, handle: 'bar', collapse: 'right'},
+            'Splitter should be able to go all the way to each side with no ill effects or overlap.<br>Handle should be a thin bar, rather than the default stripes.<br>Clicking the collapse handle should collapse the splitter to the right rather than the default left. Feature that restores original position setting for handle when dragged to its collapse position should also work on the right.'
+    );
+
+    addTest(
+            {lowerLimit: 30, upperLimit: 150, handle: 'block'},
+            'Different lower and upper limits. <br>Handle should be a thick block, rather than the default stripes.'
+    );
+
+    addTest(
+            {vertical: false, height: 200, position: '5%', limit: 30, collapse: 'down'},
+            'Attempt to break starting settings by setting the starting position smaller than the defined limit.<br>' +
+            'The splitter should override this, leaving the text in the first panel visible. If it doesn\'t, "Panel One" will be cut off.<br>' +
+            'The splitter should also collapse down rather than the default up.'
+    );
+
+    addTest(
+            {limit: -10, position: '120%', splitterSize: 13, handle: 'block'},
+            'Attempt to break limit and position settings.<br>' +
+            'Splitter should start within the container (at the edge, having been restricted to 100%), and remain unable to go beyond the edges.<br>' +
+            'Splitter bar itself should be twice as wide (13 pixels vs. default 7) but still remain fully within the panel.'
+    );
+
+    addTest(
+            {invisible: true},
+            'Invisible splitter. Splitter should still be fully functional (excluding the collapse handle).'
+    );
+
+    addTest(
+            {
+                onDragStart: function (e, splitter) {
+                    bar = splitter.find('.splitter_bar');
+                    bar.css('background', 'repeating-linear-gradient(60deg, silver, silver 5px, grey 5px, grey 10px)');
+                },
+                onDragEnd: function (e, splitter) {
+                    bar.css('background', '');
+                }
+            },
+            'Demonstration of onDragStart and onDragEnd events.<br>' +
+            'Splitter should gain a striped background when being dragged.'
+    );
+
+    addTest(
+            {
+                onDragStart: function (e, splitter) {
+                    handle = splitter.find('.splitter_handle');
+                },
+                onDragEnd: function () {
+                    handle.css('height', '').css('margin-top', '');
+                },
+                onDrag: function (e) {
+                    var x = ((e.pageX % 100) > 50 ? (50 - ((e.pageX % 100) - 50)) : e.pageX % 100) + 25;
+                    handle.css('height', x + 'px').css('margin-top', -x / 2 + 'px')
+                }
+            },
+            'Demonstration of onDrag event by setting up a crappy handle size animation.<br>' +
+            'Handle should pulsate in size as mouse moves left/right.'
+    );
+
+
+    $(window).trigger('resize.splitter'); // temporary fix for Issue #12 to kep that issue out of these tests.
+
+
+    function addTest(options, description) {
+        var code = '';
+        $.each(options, function (k, v) {
+            if (typeof v == "string") {
+                code += k + ': \'' + v + '\', ';
+            } else {
+                code += k + ': ' + v + ', ';
+            }
+        });
+        code = code.slice(0, -2);
+
+        var box = $('<div class="box"/>').append(
+                $('<div class="info"/>').append(
+                        $('<code>$(&hellip;).enhsplitter(<b>{' + code + '}</b>)</code><div>' + description + '</div>')
+                )
+        );
+        var panel = $('<div class="panel"><div>Panel One</div><div>Panel Two</div></div>');
+        box.append(panel);
+
+        $('body').append(box);
+        panel.enhsplitter(options);
+
+    }
+</script>
+
+</body>
+</html>
