@@ -215,7 +215,8 @@
 
         // If this is the first splitter, set up our events.
         if (splitters.length == 0) {
-            $(window).on('resize.splitter', function () {
+            $(window)
+                .on('resize.splitter', function () {
                 $.each(splitters, function (i, splitter) {
                     splitter.refresh();
                 });
@@ -332,7 +333,7 @@
                         }
 
                         if (currentSplitter.settings.vertical) {
-                            currentSplitter.setPosition(position - currentSplitter.offset().left);
+                            currentSplitter.setPosition(position - currentSplitter.offset().left - currentSplitter.splitterSizeHalf);
                         } else {
                             currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
                         }
@@ -340,20 +341,17 @@
                         currentSplitter.settings.onDrag(e);
                     }
                 }
-            )
-            ;
+            );
         }
 
         self.settings = settings;
 
-        // Initial position of the splitter itself.
+        // Set the initial position of the splitter.
         self.setPosition(self.translatePosition(settings.position));
 
         self.data('splitter', self);
-
         splitters.push(self);
         return self;
-    }
-    ;
+    };
 })
 (jQuery);
