@@ -287,20 +287,23 @@
                         dragStartPosition = null;
 
                         // If the slider is dropped near it's collapsed position, set a saved position back to its
-                        // original start position so the collapse handle works somewhat properly.
+                        // original start position so the collapse handle works at least somewhat properly.
                         if (!currentSplitter.data('savedPosition')) {
                             if (currentSplitter.settings.collapseNormal) {
                                 if (currentSplitter.currentPosition <= (currentSplitter.settings.lowerLimit + 5)) {
                                     currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                    disableClick = false;
                                 }
                             } else {
                                 if (currentSplitter.settings.vertical) {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerWidth - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                        disableClick = false;
                                     }
                                 } else {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerHeight - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                        disableClick = false;
                                     }
                                 }
                             }
