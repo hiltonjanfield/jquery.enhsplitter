@@ -3,31 +3,17 @@
 jquery.enhsplitter is a plugin to generate sliding splitters on your page. Useful for separating content, emulating the
 look of frames, collapsable tool windows, and more. Completely customizable look and feel, and touchscreen friendly.
 
-## Release v1.1.0
+## Demo and Documentation
 
-This release adds a number of new options, as well as a few fixes and overall UX improvements.
-- Added 'lowerLimit' and 'upperLimit' options, changed 'limit' to an alias to set both.
-- Added 'collapse' option.
-- Added 'fixed' option.
-- Added 'splitterSize' option.
-- Changed 'orientation' string setting to 'vertical' boolean setting.
-- Fixed a few bugs.
-- Significantly rewrote event handling, now smoother, faster, and tastier.
-
-## Branch v1.2.0
-
-Changes made so far.
-- (UX improvement) Implemented drag-delay if the user clicks on the collapse handle then starts dragging.
-  Drag will not begin until mouse has moved past 5 pixels in either direction.
-- (UX improvement) Prevent click event if the user started and ended their drag on the collapse handle.
-
-# Demo and Documentation
-
-A demo and basic documentation of options are available at:
+A demo and basic documentation of options of the latest version are available at:
 
 <http://janfield.ca/github/jquery.enhsplitter/demo.html>
 
-# Example
+## Requirements
+
+jquery.enhsplitter requires jQuery v1.8 or greater, or v2.0 or greater.
+
+## Example
 
 A minimal call to jquery.enhsplitter in a jQuery ready function looks like this:
 
@@ -77,13 +63,13 @@ jQuery(function ($) {
 ```
 
 
-# License
+## License
 
 Copyright (C) 2015 Hilton Janfield <hilton@janfield.ca>
 
 Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
 
-# Original Author and Contributors
+## Original Author and Contributors
 
 This plugin was originally created by Jakub Jankiewicz. See https://github.com/jcubic/jquery.splitter
 

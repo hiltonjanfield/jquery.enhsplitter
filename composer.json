@@ -27,7 +27,7 @@
   "homepage": "https://github.com/hiltonjanfield/jquery.enhsplitter",
   "bugs": "https://github.com/hiltonjanfield/jquery.enhsplitter/issues",
   "dependencies": {
-    "jquery": ">=2.1"
+    "jquery": ">=1.8 || >=2.0"
   },
   "main": [
     "js/jquery.enhsplitter.js",
