@@ -152,6 +152,15 @@
             'Handle should pulsate in size as mouse moves left/right.'
     );
 
+    var splitter = addTest(
+            {limit: 50},
+            'Test of CSS max-width functionality. The splitter has a limit of 50 set, however Panel One has a max-width of 200 and therefore should not be able to get any larger than that.<br>' +
+            'min-width is set, but not respected in regards to splitter position (but is useful to force a minimum content size, generating a scroll bar when needed)'
+    );
+    var panel = splitter.children().first().children().first();
+    panel.text('min-width: 100px; max-width: 200px;');
+    panel.css('min-width', '100px').css('max-width', '200px');
+
 
     $(window).trigger('resize.splitter'); // temporary fix for Issue #12 to kep that issue out of these tests.
 
@@ -176,7 +185,7 @@
         box.append(panel);
 
         $('body').append(box);
-        panel.enhsplitter(options);
+        return panel.enhsplitter(options);
 
     }
 </script>

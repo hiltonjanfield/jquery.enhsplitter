@@ -22,8 +22,6 @@
     var splitterCount = 0;
     var splitters = [];
     var currentSplitter = null;
-    var dragStartPosition = null;
-    var disableClick = false;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -226,8 +224,8 @@
                 .on('click.splitter', '.splitter_handle', function (e) {
                     // Prevent clicks if the user started dragging too much.
                     // Some (all?) browsers fire the click event even after the bar has been dragged hundreds of pixels.
-                    if (disableClick) {
-                        return disableClick = false;
+                    if (currentSplitter.disableClick) {
+                        return currentSplitter.disableClick = false;
                     }
                     currentSplitter = $(this).closest('.splitter_container').data('splitter');
 
@@ -266,7 +264,7 @@
                     // first - or duplicate the code, which is bad, m'kay?
                     $(this).closest('.splitter_bar').trigger('mousedown');
 
-                    dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                    currentSplitter.dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
                 })
 
                 .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter_bar', function (e) {
@@ -284,7 +282,7 @@
                 .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter_bar', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
-                        dragStartPosition = null;
+                        currentSplitter.dragStartPosition = null;
 
                         // If the slider is dropped near it's collapsed position, set a saved position back to its
                         // original start position so the collapse handle works at least somewhat properly.
@@ -292,18 +290,18 @@
                             if (currentSplitter.settings.collapseNormal) {
                                 if (currentSplitter.currentPosition <= (currentSplitter.settings.lowerLimit + 5)) {
                                     currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                    disableClick = false;
+                                    currentSplitter.disableClick = false;
                                 }
                             } else {
                                 if (currentSplitter.settings.vertical) {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerWidth - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                        disableClick = false;
+                                        currentSplitter.disableClick = false;
                                     }
                                 } else {
                                     if (currentSplitter.currentPosition >= (currentSplitter.containerHeight - currentSplitter.settings.upperLimit - 5)) {
                                         currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                        disableClick = false;
+                                        currentSplitter.disableClick = false;
                                     }
                                 }
                             }
@@ -325,10 +323,10 @@
                         }
 
                         // If the user started the drag with a mousedown on the handle, give it a 5-pixel delay.
-                        if (dragStartPosition !== null) {
-                            if (position > (dragStartPosition + 5) || position < (dragStartPosition - 5)) {
-                                dragStartPosition = null;
-                                disableClick = true;
+                        if (currentSplitter.dragStartPosition !== null) {
+                            if (position > (currentSplitter.dragStartPosition + 5) || position < (currentSplitter.dragStartPosition - 5)) {
+                                currentSplitter.dragStartPosition = null;
+                                currentSplitter.disableClick = true;
                             } else {
                                 e.preventDefault();
                                 return false;
