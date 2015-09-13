@@ -22,6 +22,8 @@
     var splitterCount = 0;
     var splitters = [];
     var currentSplitter = null; // Reference to current splitter during events.
+    var dragStartPosition = null;
+    var disableClick = false;
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -62,16 +64,31 @@
             this.css('height', settings.height);
         }
 
-        // Verify the limits are within allowed constraints (size of panel)
-        // With a little obfuscation to reduce 36 lines to 3
-        settings.limit = (settings.limit < 0 ? 0 : (settings.vertical ? (settings.limit > (this.width() / 2) ? this.width() / 2 : settings.limit) : (settings.limit > (this.height() / 2) ? this.height() / 2 : settings.limit)));
-        // Once settings.limit has been range checked, use it as a default for lowerLimit and upperLimit.
-        settings = $.extend({
-            lowerLimit: settings.limit,
-            upperLimit: settings.limit
-        }, settings);
-        settings.lowerLimit = (settings.lowerLimit < 0 ? 0 : (settings.vertical ? (settings.lowerLimit > (this.width()) ? this.width() : settings.lowerLimit) : (settings.lowerLimit > (this.height()) ? this.height() : settings.lowerLimit)));
-        settings.upperLimit = (settings.upperLimit < 0 ? 0 : (settings.vertical ? (settings.upperLimit > (this.width()) ? this.width() : settings.upperLimit) : (settings.upperLimit > (this.height()) ? this.height() : settings.upperLimit)));
+        var containerSize = settings.vertical ? this.width() : this.height();
+
+        if (settings.minSize) { settings.leftMinSize = settings.rightMinSize = settings.minSize; }
+        if (settings.maxSize) { settings.leftMaxSize = settings.rightMaxSize = settings.maxSize; }
+
+        // If left/right not defined, check for top/bottom and use them instead. (if all defined for some reason, left/right get precedence)
+        settings.leftMinSize = ((settings.leftMinSize === null) && settings.topMinSize) ? settings.topMinSize : settings.leftMinSize;
+        settings.leftMaxSize = ((settings.leftMaxSize === null) && settings.topMaxSize) ? settings.topMaxSize : settings.leftMaxSize;
+        settings.rightMinSize = ((settings.rightMinSize === null) && settings.bottomMinSize) ? settings.bottomMinSize : settings.rightMinSize;
+        settings.rightMaxSize = ((settings.rightMaxSize === null) && settings.bottomMaxSize) ? settings.bottomMaxSize : settings.rightMaxSize;
+
+        // Verify ranges.
+        settings.leftMinSize = (settings.leftMinSize < 0 ? 0 : (settings.leftMinSize > containerSize ? containerSize : settings.leftMinSize));
+        settings.leftMaxSize = (settings.leftMaxSize < 0 ? 0 : (settings.leftMaxSize > containerSize ? containerSize : settings.leftMaxSize));
+        settings.rightMinSize = (settings.rightMinSize < 0 ? 0 : (settings.rightMinSize > containerSize ? containerSize : settings.rightMinSize));
+        settings.rightMaxSize = (settings.rightMaxSize < 0 ? 0 : (settings.rightMaxSize > containerSize ? containerSize : settings.rightMaxSize));
+
+        // Verify minimum sizes.
+        var totalSize = settings.leftMinSize + settings.rightMinSize;
+        if (totalSize > containerSize) {
+            // User has set the left and right minimums too high. Proportionally reduce them.
+            settings.leftMinSize = containerSize * (settings.leftMinSize / totalSize);
+            settings.rightMinSize = containerSize * (settings.rightMinSize / totalSize);
+        }
+
 
         settings.collapseNormal = !(settings.collapse == 'right' || settings.collapse == 'down');
         settings.collapsable = !(settings.collapse == 'none');
@@ -99,54 +116,38 @@
 
         self = $.extend(this, {
             currentPosition: 0,
+            containerSize: containerSize,
             splitterSize: settings.invisible ? 0 : (settings.vertical ? splitter.outerWidth() : splitter.outerHeight()),
             splitterSizeHalf: settings.invisible ? 0 : (settings.vertical ? splitter.outerWidth() / 2 : splitter.outerHeight() / 2),
-            containerWidth: this.width(),
-            containerHeight: this.height(),
 
             refresh: function () {
-                var newWidth = this.width();
-                var newHeight = this.height();
-                if (self.containerWidth != newWidth || self.containerHeight != newHeight) {
-                    self.containerWidth = this.width();
-                    self.containerHeight = this.height();
+                var newSize = self.settings.vertical ? this.width() : this.height();
+                if (self.containerSize != newSize) {
+                    self.containerSize = newSize;
                     self.setPosition(self.currentPosition);
                 }
             },
 
-            setPosition: (function () {
-                if (settings.vertical) {
-                    return function (n) {
-                        if (n <= settings.lowerLimit) {
-                            n = settings.lowerLimit + 1;
-                        } else if (n >= self.containerWidth - settings.upperLimit - self.splitterSizeHalf) {
-                            n = self.containerWidth - settings.upperLimit - self.splitterSizeHalf;
-                        }
-                        self.currentPosition = n;
-
-                        var panelOneWidth = panelOne.outerWidth(self.currentPosition - self.splitterSizeHalf).outerWidth();
-                        panelTwo.outerWidth(self.containerWidth - panelOneWidth - self.splitterSize);
-                        splitter.css('left', panelOneWidth);
-
-                        return self;
-                    };
-                } else {
-                    return function (n) {
-                        if (n <= settings.lowerLimit) {
-                            n = settings.lowerLimit + 1;
-                        } else if (n >= self.containerHeight - settings.upperLimit - self.splitterSizeHalf) {
-                            n = self.containerHeight - settings.upperLimit - self.splitterSizeHalf;
-                        }
-                        self.currentPosition = n;
-
-                        var panelOneHeight = panelOne.outerHeight(self.currentPosition - self.splitterSizeHalf).outerHeight();
-                        panelTwo.outerHeight(self.containerHeight - panelOneHeight - self.splitterSize);
-                        splitter.css('top', panelOneHeight);
-
-                        return self;
-                    };
+            setPosition: function (newPos) {
+                if (newPos <= settings.leftMinSize) {
+                    newPos = settings.leftMinSize;
+                } else if (newPos >= self.containerSize - settings.rightMinSize - self.splitterSize) {
+                    newPos = self.containerSize - settings.rightMinSize - self.splitterSize;
                 }
-            })(),
+                self.currentPosition = newPos;
+
+                if (self.settings.vertical) {
+                    panelOne.outerWidth(newPos);
+                    panelTwo.outerWidth(self.containerSize - newPos - self.splitterSize);
+                    splitter.css('left', self.settings.invisible ? newPos - self.splitterSizeHalf : newPos);
+                } else {
+                    panelOne.outerHeight(newPos);
+                    panelTwo.outerHeight(self.containerSize - newPos - self.splitterSize);
+                    splitter.css('top', self.settings.invisible ? newPos - self.splitterSizeHalf : newPos);
+                }
+
+                return self;
+            },
 
             translatePosition: function (position) {
                 //TODO: Consider replacing this with a more robust function that can accept any CSS value, such as Length.js at https://github.com/heygrady/Units
@@ -158,11 +159,7 @@
                     if (match) {
                         if (match[2] && match[2] == '%') {
                             var splitter = currentSplitter || self;
-                            if (splitter.settings.vertical) {
-                                return (splitter.containerWidth * +match[1]) / 100;
-                            } else {
-                                return (splitter.containerHeight * +match[1]) / 100;
-                            }
+                            return (splitter.containerSize * +match[1]) / 100;
                         }
                         return +match[1]; // assume pixels for ANY suffix except '%', or lack thereof.
                     } else {
@@ -211,10 +208,10 @@
                 .on('click.splitter', '.splitter_handle', function (e) {
                     // Prevent clicks if the user started dragging too much.
                     // Some (all?) browsers fire the click event even after the bar has been dragged hundreds of pixels.
-                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
-                    if (currentSplitter.disableClick) {
-                        return currentSplitter.disableClick = false;
+                    if (disableClick) {
+                        return disableClick = false;
                     }
+                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
 
                     if (currentSplitter.settings.collapsable) {
                         if (currentSplitter.data('savedPosition')) {
@@ -226,13 +223,9 @@
                             // Save current position and collapse.
                             currentSplitter.data('savedPosition', currentSplitter.currentPosition);
                             if (currentSplitter.settings.collapseNormal) {
-                                currentSplitter.setPosition(currentSplitter.settings.lowerLimit + 1);
+                                currentSplitter.setPosition(currentSplitter.settings.leftMinSize);
                             } else {
-                                if (currentSplitter.settings.vertical) {
-                                    currentSplitter.setPosition(currentSplitter.containerWidth - currentSplitter.settings.upperLimit);
-                                } else {
-                                    currentSplitter.setPosition(currentSplitter.containerHeight - currentSplitter.settings.upperLimit);
-                                }
+                                currentSplitter.setPosition(currentSplitter.containerSize - currentSplitter.settings.rightMinSize);
                             }
                         }
 
@@ -247,11 +240,11 @@
 
                 .on('mousedown.splitter', '.splitter_handle', function (e) {
                     e.preventDefault();
-                    // This mousedown event gets called first because it is on top, but we need the other one to fire
-                    // first - or duplicate the code, which is bad, m'kay?
-                    $(this).closest('.splitter_bar').trigger('mousedown');
+                    if (currentSplitter == null) {
+                        $(this).closest('.splitter_bar').trigger('mousedown');
+                    }
 
-                    currentSplitter.dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                    dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
                 })
 
                 .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter_bar', function (e) {
@@ -269,27 +262,20 @@
                 .on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', '.splitter_mask, .splitter_container > .splitter_bar', function (e) {
                     if (currentSplitter) {
                         e.preventDefault();
-                        currentSplitter.dragStartPosition = null;
+                        dragStartPosition = null;
 
                         // If the slider is dropped near it's collapsed position, set a saved position back to its
                         // original start position so the collapse handle works at least somewhat properly.
                         if (!currentSplitter.data('savedPosition')) {
                             if (currentSplitter.settings.collapseNormal) {
-                                if (currentSplitter.currentPosition <= (currentSplitter.settings.lowerLimit + 5)) {
+                                if (currentSplitter.currentPosition <= (currentSplitter.settings.leftMinSize + 5)) {
                                     currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                    currentSplitter.disableClick = false;
+                                    disableClick = false;
                                 }
                             } else {
-                                if (currentSplitter.settings.vertical) {
-                                    if (currentSplitter.currentPosition >= (currentSplitter.containerWidth - currentSplitter.settings.upperLimit - 5)) {
-                                        currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                        currentSplitter.disableClick = false;
-                                    }
-                                } else {
-                                    if (currentSplitter.currentPosition >= (currentSplitter.containerHeight - currentSplitter.settings.upperLimit - 5)) {
-                                        currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
-                                        currentSplitter.disableClick = false;
-                                    }
+                                if (currentSplitter.currentPosition >= (currentSplitter.containerSize - currentSplitter.settings.rightMinSize - 5)) {
+                                    currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
+                                    disableClick = false;
                                 }
                             }
                         }
@@ -310,10 +296,10 @@
                         }
 
                         // If the user started the drag with a mousedown on the handle, give it a 5-pixel delay.
-                        if (currentSplitter.dragStartPosition !== null) {
-                            if (position > (currentSplitter.dragStartPosition + 5) || position < (currentSplitter.dragStartPosition - 5)) {
-                                currentSplitter.dragStartPosition = null;
-                                currentSplitter.disableClick = true;
+                        if (dragStartPosition !== null) {
+                            if (position > (dragStartPosition + 5) || position < (dragStartPosition - 5)) {
+                                dragStartPosition = null;
+                                disableClick = true;
                             } else {
                                 e.preventDefault();
                                 return false;
@@ -321,9 +307,9 @@
                         }
 
                         if (currentSplitter.settings.vertical) {
-                            currentSplitter.setPosition(position - currentSplitter.offset().left - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().left - currentSplitter.splitterSize + 1);
                         } else {
-                            currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSizeHalf);
+                            currentSplitter.setPosition(position - currentSplitter.offset().top - currentSplitter.splitterSize + 1);
                         }
                         e.preventDefault();
                         currentSplitter.settings.onDrag(e, currentSplitter);
@@ -344,8 +330,11 @@
 
     $.fn.enhsplitter.defaults = {
         vertical: true,
-        limit: 100,
         position: '50%',
+        leftMinSize: 100,
+        leftMaxSize: null,
+        rightMinSize: 100,
+        rightMaxSize: null,
         invisible: false,
         handle: 'default',
         fixed: false,

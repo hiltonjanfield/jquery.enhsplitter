@@ -68,6 +68,10 @@
         br {
             line-height: 2.5em;
         }
+
+        .splitter_bar {
+            background: transparent;
+        }
     </style>
 
 </head>
@@ -81,6 +85,14 @@
 </p>
 
 <script>
+    // Example of setting defaults.
+    $.fn.enhsplitter.defaults.onDrag = function(e, splitter) {
+        panelOne = splitter.children().first();
+        panelOne.children().first().text(panelOne.width() + 'px');
+        panelTwo = panelOne.next().next();
+        panelTwo.children().first().text(panelTwo.width() + 'px');
+    };
+
     addTest(
             {},
             'Basic splitter with strictly default options.<br>' +
@@ -93,24 +105,24 @@
     );
 
     addTest(
-            {limit: 0, handle: 'bar', collapse: 'right'},
+            {minSize: 0, handle: 'bar', collapse: 'right'},
             'Splitter should be able to go all the way to each side with no ill effects or overlap.<br>Handle should be a thin bar, rather than the default stripes.<br>Clicking the collapse handle should collapse the splitter to the right rather than the default left. Feature that restores original position setting for handle when dragged to its collapse position should also work on the right.'
     );
 
     addTest(
-            {lowerLimit: 30, upperLimit: 150, handle: 'block'},
+            {leftMinSize: 30, rightMinSize: 150, handle: 'block'},
             'Different lower and upper limits. <br>Handle should be a thick block, rather than the default stripes.'
     );
 
     addTest(
-            {vertical: false, height: 200, position: '5%', limit: 30, collapse: 'down'},
+            {vertical: false, height: 200, position: '5%', minSize: 30, collapse: 'down'},
             'Attempt to break starting settings by setting the starting position smaller than the defined limit.<br>' +
             'The splitter should override this, leaving the text in the first panel visible. If it doesn\'t, "Panel One" will be cut off.<br>' +
             'The splitter should also collapse down rather than the default up.'
     );
 
     addTest(
-            {limit: -10, position: '120%', splitterSize: 13, handle: 'block'},
+            {rightMinSize: -10, position: '120%', splitterSize: 13, handle: 'block'},
             'Attempt to break limit and position settings.<br>' +
             'Splitter should start within the container (at the edge, having been restricted to 100%), and remain unable to go beyond the edges.<br>' +
             'Splitter bar itself should be twice as wide (13 pixels vs. default 7) but still remain fully within the panel.'
@@ -151,15 +163,6 @@
             'Demonstration of onDrag event by setting up a crappy handle size animation.<br>' +
             'Handle should pulsate in size as mouse moves left/right.'
     );
-
-    var splitter = addTest(
-            {limit: 50},
-            'Test of CSS max-width functionality. The splitter has a limit of 50 set, however Panel One has a max-width of 200 and therefore should not be able to get any larger than that.<br>' +
-            'min-width is set, but not respected in regards to splitter position (but is useful to force a minimum content size, generating a scroll bar when needed)'
-    );
-    var panel = splitter.children().first().children().first();
-    panel.text('min-width: 100px; max-width: 200px;');
-    panel.css('min-width', '100px').css('max-width', '200px');
 
 
     $(window).trigger('resize.splitter'); // temporary fix for Issue #12 to kep that issue out of these tests.

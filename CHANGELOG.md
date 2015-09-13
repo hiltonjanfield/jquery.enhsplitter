@@ -1,6 +1,14 @@
 # jQuery Enhanced Splitter Change Log
 
-## Branch v1.2.0
+## Branch v1.2.1
+
+- Considerable internal refactoring.
+- Add options 'leftMinSize', 'leftMaxSize', 'rightMinSize', 'rightMaxSize'.
+- Add aliases 'topMinSize', 'topMaxSize', 'bottomMinSize', 'bottomMaxSize', which refer to the new options above respectively.
+- Add aliases 'minSize' and 'maxSize' to refer to each similarly named pair of options above.
+- Remove options 'lowerLimit' and 'upperLimit', and alias 'limit'. Use 'leftMinSize', 'rightMinSize', and 'minSize' instead.
+
+## Release v1.2.0
 
 A few bug fixes and minor enhancements, with small breaking changes signifying the minor version increment.
 - Updated composer.json to specify valid jQuery versions (1.8+ / 2.0+).
