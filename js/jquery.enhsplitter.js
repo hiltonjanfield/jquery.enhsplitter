@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * Main ECMAScript File
- * Version 1.2.0
+ * Version 1.2.1
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-(function ($, undefined) {
+(function ($) {
     var splitterCount = 0;
     var splitters = [];
     var currentSplitter = null; // Reference to current splitter during events.
@@ -91,7 +91,7 @@
                             splitterBar.removeClass(v);
                         }
                     });
-                    splitterBar.addClass('splitter-handle-' + arg1)
+                    splitterBar.addClass('splitter-handle-' + arg1);
                     currentSplitter = null;
                     return this;
 
@@ -195,7 +195,7 @@
             splitterSizeHalf: settings.invisible ? 0 : (settings.vertical ? splitter.outerWidth() / 2 : splitter.outerHeight() / 2),
 
             refresh: function () {
-                var newSize = self.settings.vertical ? this.width() : this.height();
+                var newSize = self.settings.vertical ? self.width() : self.height();
                 if (self.containerSize != newSize) {
                     self.containerSize = newSize;
                     self.setPosition(self.currentPosition);
