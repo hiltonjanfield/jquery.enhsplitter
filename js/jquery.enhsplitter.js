@@ -21,7 +21,7 @@
 (function ($, undefined) {
     var splitterCount = 0;
     var splitters = [];
-    var currentSplitter = null;
+    var currentSplitter = null; // Reference to current splitter during events.
 
     $.fn.enhsplitter = function (options) {
         var data = this.data('splitter');
@@ -29,20 +29,7 @@
             return data;
         }
 
-        var settings = $.extend({
-            limit: 100,
-            vertical: true,
-            position: '50%',
-            invisible: false,
-            handle: 'default',
-            fixed: false,
-            collapsable: true,
-            collapse: 'left',
-            height: null,
-            onDragStart: $.noop,
-            onDragEnd: $.noop,
-            onDrag: $.noop
-        }, options || {});
+        var settings = $.extend({}, $.fn.enhsplitter.defaults, options);
 
         var id = splitterCount++;
         var self;
@@ -215,10 +202,10 @@
         if (splitters.length == 0) {
             $(window)
                 .on('resize.splitter', function () {
-                $.each(splitters, function (i, splitter) {
-                    splitter.refresh();
+                    $.each(splitters, function (i, splitter) {
+                        splitter.refresh();
+                    });
                 });
-            });
 
             $(document.documentElement)
                 .on('click.splitter', '.splitter_handle', function (e) {
@@ -354,5 +341,21 @@
         splitters.push(self);
         return self;
     };
+
+    $.fn.enhsplitter.defaults = {
+        vertical: true,
+        limit: 100,
+        position: '50%',
+        invisible: false,
+        handle: 'default',
+        fixed: false,
+        collapse: 'left',
+        height: null,
+        splitterSize: null,
+        onDragStart: $.noop,
+        onDragEnd: $.noop,
+        onDrag: $.noop
+    };
+
 })
 (jQuery);

@@ -62,6 +62,51 @@ jQuery(function ($) {
 }
 ```
 
+Defaults
+--------
+To change the default value for any setting for your entire page, use the .defaults object:
+```javascript
+$.fn.enhsplitter.defaults.splitterSize = '13px';
+```
+
+
+## Testing
+
+Officially, jquery.enhsplitter follows the same device support program as jQuery 2.x.
+We test on as many browsers and devices as we can, starting with the major ones.
+
+### Windows and Linux
+
+- [x] Firefox 40 (primary testing platform)
+- [x] Chrome 45
+- [x] Internet Explorer 11
+
+Have you installed Windows 10? Give us an Edge report!
+
+### Mac OS X
+
+We do not have easy access to any Apple systems. If you are using one, please
+[try everything in the test file](http://www.janfield.ca/github/jquery.enhsplitter/test.html)
+and send us a report!
+
+### Touch Screen Devices
+
+On sites specifically designed for mobile, It is recommended to use the `splitterSize` option or custom CSS to increase
+the width of the splitter. Using custom CSS to increase the size of the collapse handle is also recommended if it is
+intended to be used; it should be disabled otherwise as it is too awkward to hit on mobile devices.
+
+Future revisions will include special CSS for mobile and touch screen devices.
+
+Currently tested and fully functional on the following, unless otherwise noted:
+- [x] Android 5.0.1 - Internet 2.1.34.16 
+- [x] Android 5.0.1 - Chrome for Android 45.0.2454.84
+- [ ] Android 5.0.1 - Firefox for Android 40.0.3 - Collapse handle clicks not working; everything else fine.
+- [ ] iOS 8.4 - Mobile Safari - Collapse handle clicks are difficult and touchy; everything else fine.
+
+We do not have easy access to any Surface-type devices. If you are using one, please
+[try everything in the test file](http://www.janfield.ca/github/jquery.enhsplitter/test.html)
+and send us a report! Although I expect everything to work the same as the Windows browsers listed above, we can't be
+sure that they handle touch events the same as mouse.
 
 ## License
 
