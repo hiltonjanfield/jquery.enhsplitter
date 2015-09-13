@@ -56,18 +56,20 @@ available options.
 jQuery(function ($) {
     $('#panels').enhsplitter({
         vertical: true,
-        limit: 125,
-        handle: 'striped'
+        minSize: 125,
+        handle: 'default'
     });
 }
 ```
 
 Defaults
 --------
-To change the default value for any setting for your entire page, use the .defaults object:
+To change the default value for any option, use the .defaults object:
 ```javascript
 $.fn.enhsplitter.defaults.splitterSize = '13px';
 ```
+
+Changing the .defaults object will cause every new splitter after that point to use those settings.
 
 
 ## Testing
