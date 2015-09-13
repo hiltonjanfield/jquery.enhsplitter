@@ -80,8 +80,14 @@
 <h1>jquery.enhsplitter Features Tests</h1>
 
 <p>
-    <a href="demo.html">Demo and Documentation</a>.
+    <a href="demo.html">Demo and Documentation</a>
+</p>
+<p>
     This test file uses jQuery 1.8.0, the minimum required version, to ensure there are no version compatibility breaks.
+</p>
+<p>
+    Splitters on this test page have been manually colored transparent to ensure the panels retain their proper size
+    during feature tests. Handles and borders remain for visual identification.
 </p>
 
 <script>
@@ -161,7 +167,9 @@
                 }
             },
             'Demonstration of onDrag event by setting up a crappy handle size animation.<br>' +
-            'Handle should pulsate in size as mouse moves left/right.'
+            'Handle should pulsate in size as mouse moves left/right.<br>' +
+            'This entire page also demonstrates the onDrag event; an onDrag function is used to show the panel pixel' +
+            'sizes when dragging splitters around.'
     );
 
 
