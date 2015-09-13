@@ -136,7 +136,7 @@
         </p>
 
         <p>
-            This splitter is set with <code>{limit: 50, vertical: false}</code>.
+            This splitter is set with <code>{minSize: 50, vertical: false}</code>.
             This is the lower pane of the outer splitter; the two panels and splitter above are contained within the
             upper panel of this splitter.
         </p>
@@ -182,8 +182,7 @@
         <h4>#demoThreeB</h4>
 
         <p>
-            This splitter was created using with the options <code>{handle: 'bar', position: 150, lowerLimit: 0,
-            upperLimit: 150, fixed: true}</code>. <code>position</code> defines a starting size,
+            This splitter was created using with the options <code>{handle: 'bar', position: 150, leftMinSize: 30, fixed: true}</code>. <code>position</code> defines a starting size,
             <code>{limit, lowerLimit, and upperLimit}</code> define how small the panels may get, and
             <code>handle</code> sets up a different effect for the collapse handle. The <code>{fixed: true}</code>
             option disables the ability to drag the splitter around, while leaving the collapse options intact - the
@@ -259,6 +258,8 @@
 </pre>
 
 <hr>
+
+<a href="test.html">Features test page</a>
 
 <div id="docs">
     <h1>Usage</h1>
