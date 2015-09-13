@@ -1,6 +1,6 @@
 # jQuery Enhanced Splitter Change Log
 
-## Branch v1.2.1
+## Release v1.2.1
 
 - Considerable internal refactoring.
 - Add options 'leftMinSize', 'leftMaxSize', 'rightMinSize', 'rightMaxSize'.
