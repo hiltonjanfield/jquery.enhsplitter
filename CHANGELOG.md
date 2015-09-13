@@ -7,6 +7,9 @@
 - Add aliases 'topMinSize', 'topMaxSize', 'bottomMinSize', 'bottomMaxSize', which refer to the new options above respectively.
 - Add aliases 'minSize' and 'maxSize' to refer to each similarly named pair of options above.
 - Remove options 'lowerLimit' and 'upperLimit', and alias 'limit'. Use 'leftMinSize', 'rightMinSize', and 'minSize' instead.
+- Add command interface.
+- Update documentation.
+
 
 ## Release v1.2.0
 
