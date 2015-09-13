@@ -119,9 +119,9 @@
 
     <script>
         jQuery(function ($) {
-            $('#demoOne').enhsplitter({limit: 50, vertical: false});
+            $('#demoOne').enhsplitter({minSize: 50, vertical: false});
             $('#demoOneB').enhsplitter();
-            $('#demoThree').enhsplitter({handle: 'bar', position: 150, lowerLimit: 0, fixed: true});
+            $('#demoThree').enhsplitter({handle: 'bar', position: 150, leftMinSize: 0, fixed: true});
         });
     </script>
 </head>
@@ -325,43 +325,36 @@
             </p>
         </dd>
 
-        <dt>limit</dt>
+        <dt>minSize, leftMinSize, rightMinSize, topMinSize, bottomMinSize</dt>
         <dd>
             <code>[number]</code>
             <code class="default">Default: 100</code>
 
             <p>
-                Defines the minimum size for both panels, in pixels. In the examples above, the vertical splitter
-                between the yellow and red panes is set with <code>{limit: 25}</code>, while the horizontal splitter
-                between those and the purple pane is set with <code>{limit: 50}</code>.
+                Defines the minimum sizes for each panel, in pixels.
             </p>
 
-            <p>
-                This option is a shortcut to set both <code>{lowerLimit}</code> and <code>{upperLimit}</code>
-                at the same time, to the same value.
-            </p>
+            <ul>
+                <li><code>minSize</code> is an alias to set both <code>leftMinSize</code> and <code>rightMinSize</code>.</li>
+                <li><code>topMinSize</code> and <code>bottomMinSize</code> are internally an alias for
+                    <code>leftMinSize</code> and <code>rightMinSize</code> respectively.</li>
+            </ul>
         </dd>
 
-        <dt>lowerLimit</dt>
+        <dt>maxSize, leftMaxSize, rightMaxSize, topMaxSize, bottomMaxSize</dt>
         <dd>
             <code>[number]</code>
             <code class="default">Default: 100</code>
 
             <p>
-                Defines the minimum size for the left panel in a vertical splitter, or the top panel in a horizontal
-                splitter.
+                Defines the maximum sizes for each panel, in pixels.
             </p>
-        </dd>
 
-        <dt>upperLimit</dt>
-        <dd>
-            <code>[number]</code>
-            <code class="default">Default: 100</code>
-
-            <p>
-                Defines the minimum size for the right panel in a vertical splitter, or the bottom panel in a horizontal
-                splitter.
-            </p>
+            <ul>
+                <li><code>maxSize</code> is an alias to set both <code>leftMaxSize</code> and <code>rightMaxSize</code>.</li>
+                <li><code>topMaxSize</code> and <code>bottomMaxSize</code> are internally an alias for
+                    <code>leftMaxSize</code> and <code>rightMaxSize</code> respectively.</li>
+            </ul>
         </dd>
 
         <dt>position</dt>
