@@ -140,8 +140,10 @@
 
         var containerSize = settings.vertical ? this.width() : this.height();
 
-        if (settings.minSize) { settings.leftMinSize = settings.rightMinSize = settings.minSize; }
-        if (settings.maxSize) { settings.leftMaxSize = settings.rightMaxSize = settings.maxSize; }
+        console.log(settings);
+
+        if (typeof settings.minSize !== 'undefined') { settings.leftMinSize = settings.rightMinSize = settings.minSize; }
+        if (typeof settings.maxSize !== 'undefined') { settings.leftMaxSize = settings.rightMaxSize = settings.maxSize; }
 
         // If left/right not defined, check for top/bottom and use them instead. (if all defined for some reason, left/right get precedence)
         settings.leftMinSize = ((settings.leftMinSize === null) && settings.topMinSize) ? settings.topMinSize : settings.leftMinSize;
