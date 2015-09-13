@@ -273,7 +273,7 @@
                                     disableClick = false;
                                 }
                             } else {
-                                if (currentSplitter.currentPosition >= (currentSplitter.containerSize - currentSplitter.settings.rightMinSize - 5)) {
+                                if (currentSplitter.currentPosition >= (currentSplitter.containerSize - currentSplitter.settings.rightMinSize - currentSplitter.splitterSize - 5)) {
                                     currentSplitter.data('savedPosition', self.translatePosition(currentSplitter.settings.position));
                                     disableClick = false;
                                 }
