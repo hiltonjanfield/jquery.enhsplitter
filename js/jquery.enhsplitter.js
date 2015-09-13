@@ -25,9 +25,83 @@
     var dragStartPosition = null;
     var disableClick = false;
 
-    $.fn.enhsplitter = function (options) {
+    $.fn.enhsplitter = function (options, arg1) {
         var data = this.data('splitter');
         if (data) {
+            if (typeof options === 'string') {
+                currentSplitter = data;
+
+                if (options == 'move') {
+                    currentSplitter.setPosition(currentSplitter.translatePosition(arg1));
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'refresh') {
+                    if (!currentSplitter.refresh()) {
+                        currentSplitter.setPosition(currentSplitter.currentPosition);
+                    }
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'reset') {
+                    currentSplitter.setPosition(currentSplitter.translatePosition(currentSplitter.settings.position));
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'collapse') {
+                    currentSplitter.data('savedPosition', currentSplitter.currentPosition);
+                    if (currentSplitter.settings.collapseNormal) {
+                        currentSplitter.setPosition(currentSplitter.settings.leftMinSize);
+                    } else {
+                        currentSplitter.setPosition(currentSplitter.containerSize - currentSplitter.settings.rightMinSize);
+                    }
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'uncollapse') {
+                    var saved = currentSplitter.data('savedPosition');
+                    currentSplitter.setPosition(saved || currentSplitter.settings.position);
+                    currentSplitter.data('savedPosition', null);
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'visible') {
+                    currentSplitter.settings.invisible = !arg1;
+                    var splitterBar = currentSplitter.children('.splitter_bar');
+                    if (currentSplitter.settings.invisible) {
+                        splitterBar.addClass('splitter-invisible');
+                        currentSplitter.splitterSize = 0;
+                        currentSplitter.splitterSizeHalf = 0;
+                    } else {
+                        splitterBar.removeClass('splitter-invisible');
+                        currentSplitter.splitterSize = (currentSplitter.settings.vertical ? splitterBar.outerWidth() : splitterBar.outerHeight());
+                        currentSplitter.splitterSizeHalf = (currentSplitter.settings.vertical ? splitterBar.outerWidth() / 2 : splitterBar.outerHeight() / 2);
+                    }
+                    currentSplitter.setPosition(currentSplitter.currentPosition);
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'handle') {
+                    splitterBar = currentSplitter.children('.splitter_bar');
+                    if (!arg1) {
+                        arg1 = 'none';
+                    }
+                    $.each(splitterBar[0].classList, function (k, v) {
+                        if (v.indexOf('splitter-handle-') !== -1) {
+                            splitterBar.removeClass(v);
+                        }
+                    });
+                    splitterBar.addClass('splitter-handle-' + arg1)
+                    currentSplitter = null;
+                    return this;
+
+                } else if (options == 'remove') {
+                    currentSplitter.destroy();
+                    currentSplitter = null;
+                    return true;
+                }
+                return false;
+            }
             return data;
         }
 
@@ -125,7 +199,9 @@
                 if (self.containerSize != newSize) {
                     self.containerSize = newSize;
                     self.setPosition(self.currentPosition);
+                    return true;
                 }
+                return false;
             },
 
             setPosition: function (newPos) {

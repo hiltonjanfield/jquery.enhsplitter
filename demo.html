@@ -204,7 +204,7 @@
 
 <!-- Example code display. -->
 
-    <!-- HTML generated using hilite.me and slightly modified by hand -->
+<!-- HTML generated using hilite.me and slightly modified by hand -->
     <pre id="code" class="codesample"><span style="color: #007700">&lt;div</span> <span
             style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;demoOne&quot;</span><span
             style="color: #007700">&gt;</span>
@@ -246,10 +246,12 @@
                 style="color: #333333">:</span> <span style="background-color: #fff0f0">false</span>});
         $(<span style="background-color: #fff0f0">&#39;#demoOneB&#39;</span>).enhsplitter();
         $(<span style="background-color: #fff0f0">&#39;#demoThree&#39;</span>).enhsplitter({handle<span
-                style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;bar&#39;</span>, position<span
+                style="color: #333333">:</span> <span
+                style="background-color: #fff0f0">&#39;bar&#39;</span>, position<span
                 style="color: #333333">:</span> <span
                 style="background-color: #fff0f0">150</span>, lowerLimit<span
-                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>, upperLimit<span
+                style="color: #333333">:</span> <span
+                style="color: #0000DD; font-weight: bold">0</span>, upperLimit<span
                 style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">150</span>, fixed<span
                 style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">true</span>});
     });
@@ -335,9 +337,11 @@
             </p>
 
             <ul>
-                <li><code>minSize</code> is an alias to set both <code>leftMinSize</code> and <code>rightMinSize</code>.</li>
+                <li><code>minSize</code> is an alias to set both <code>leftMinSize</code> and <code>rightMinSize</code>.
+                </li>
                 <li><code>topMinSize</code> and <code>bottomMinSize</code> are internally an alias for
-                    <code>leftMinSize</code> and <code>rightMinSize</code> respectively.</li>
+                    <code>leftMinSize</code> and <code>rightMinSize</code> respectively.
+                </li>
             </ul>
         </dd>
 
@@ -351,9 +355,11 @@
             </p>
 
             <ul>
-                <li><code>maxSize</code> is an alias to set both <code>leftMaxSize</code> and <code>rightMaxSize</code>.</li>
+                <li><code>maxSize</code> is an alias to set both <code>leftMaxSize</code> and <code>rightMaxSize</code>.
+                </li>
                 <li><code>topMaxSize</code> and <code>bottomMaxSize</code> are internally an alias for
-                    <code>leftMaxSize</code> and <code>rightMaxSize</code> respectively.</li>
+                    <code>leftMaxSize</code> and <code>rightMaxSize</code> respectively.
+                </li>
             </ul>
         </dd>
 
@@ -383,7 +389,7 @@
 
         <dt>handle</dt>
         <dd>
-            <code>['default'|'block'|'largeblock'|'none'|&lt;user-defined&gt;]</code>
+            <code>['default'|'bar'|'block'|'none'|&lt;user-defined&gt;]</code>
             <code class="default">Default: 'default'</code>
 
             <p>
@@ -394,7 +400,8 @@
                 <li><code>'bar'</code> draws a narrow grey bar, as shown in the third example above.</li>
                 <li><code>'block'</code> draws a wide grey block that fills the width of the splitter.</li>
                 <li><code>'none'</code> hides the handle completely, disabling it. This effect is also achieved
-                when setting <code>{invisible: true}</code>;  it is not necessary to set both.</li>
+                    when setting <code>{invisible: true}</code>; it is not necessary to set both.
+                </li>
                 <li>
                     <code>&lt;user-defined&gt;</code> - Identifier for any CSS class you create. By adding new
                     <code>.splitter-handle-</code> classes (see the CSS file), you can create custom styles without
@@ -440,9 +447,11 @@
             <p>
                 Specifies the height of the container.
             </p>
+
             <p>
                 Any CSS value can be used; numbers with no suffix will be treated as pixel values.
             </p>
+
             <p>
                 In the instance that the both the container and parent heights have not been specified, the CSS on
                 the container will cause the height to become 0. If this happens, height will default to 10em.
@@ -459,6 +468,7 @@
                 without custom CSS. Ideal when paired with <code>{invisible: true}</code>, also useful for increasing
                 the splitter size on mobile sites (for easier use on touch devices).
             </p>
+
             <p>
                 Any CSS value can be used; numbers with no suffix will be treated as pixel values.
             </p>
@@ -470,6 +480,7 @@
             <code class="default">Default: $.noop</code>
 
             <p>Event handler called when a user starts dragging a splitter.</p>
+
             <p>Parameters passed are the standard event handler data, and the .splitter_container object.</p>
         </dd>
 
@@ -479,6 +490,7 @@
             <code class="default">Default: $.noop</code>
 
             <p>Event handler called when a user stops dragging a splitter.</p>
+
             <p>Parameters passed are the standard event handler data, and the .splitter_container object.</p>
         </dd>
 
@@ -488,8 +500,90 @@
             <code class="default">Default: $.noop</code>
 
             <p>Event handler called after a user moves a splitter.</p>
+
             <p>Parameters passed are the standard event handler data, and the .splitter_container object.</p>
         </dd>
+    </dl>
+
+    <h1>Commands</h1>
+
+    <p>
+        These commands can be used on splitters which have already been created.
+        They will have no effect on non-splitter objects. Attempting to use a command on a jQuery object which is not
+        a jquery.enhsplitter object will simply create an splitter with default options.
+    </p>
+    <dl>
+        <dt>move</dt>
+        <dd>
+            <code>.enhsplitter('move', [number (px)|string (px|%)])</code>
+
+            <p>
+                Changes the splitter position to the location specified (with range checks).
+            </p>
+        </dd>
+
+        <dt>refresh</dt>
+        <dd>
+            <code>.enhsplitter('refresh')</code>
+
+            <p>
+                Forces a refresh of the container size and splitter location (with range checks).
+            </p>
+        </dd>
+
+        <dt>reset</dt>
+        <dd>
+            <code>.enhsplitter('reset')</code>
+
+            <p>
+                Resets the splitter location to it's starting position.
+            </p>
+        </dd>
+
+        <dt>collapse</dt>
+        <dd>
+            <code>.enhsplitter('collapse')</code>
+
+            <p>
+                Collapses the splitter as if the collapse handle was clicked.
+            </p>
+        </dd>
+
+        <dt>uncollapse</dt>
+        <dd>
+            <code>.enhsplitter('uncollapse')</code>
+
+            <p>
+                Returns the splitter to it's pre-collapsed position.
+            </p>
+        </dd>
+
+        <dt>visible</dt>
+        <dd>
+            <code>.enhsplitter('visible', [true|false])</code>
+
+            <p>
+                Sets whether the splitter is visible or not. This is equivalent to (but opposite from) the
+                <code>invisible</code> option, visually hiding the splitter but leaving it usable.
+            </p>
+        </dd>
+
+        <dt>handle</dt>
+        <dd>
+            <code>.enhsplitter('handle', ['default'|'bar'|'block'|'none'|&lt;user-defined&gt;])</code>
+
+            <p>Equivalent to the <code>handle</code> option, changes the handle style on the fly.</p>
+        </dd>
+
+        <dt>destroy</dt>
+        <dd>
+            <code>.enhsplitter('destroy');</code>
+
+            <p>
+                Removes the splitter container, splitter panels, and splitter bar, returning the DOM to its previous layout.
+            </p>
+        </dd>
+
     </dl>
 </div>
 
