@@ -224,10 +224,10 @@
                 .on('click.splitter', '.splitter_handle', function (e) {
                     // Prevent clicks if the user started dragging too much.
                     // Some (all?) browsers fire the click event even after the bar has been dragged hundreds of pixels.
+                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
                     if (currentSplitter.disableClick) {
                         return currentSplitter.disableClick = false;
                     }
-                    currentSplitter = $(this).closest('.splitter_container').data('splitter');
 
                     if (currentSplitter.settings.collapsable) {
                         if (currentSplitter.data('savedPosition')) {
