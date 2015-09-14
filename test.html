@@ -135,12 +135,15 @@
     );
 
     addTest(
-            {invisible: true},
-            'Invisible splitter. Splitter should still be fully functional (excluding the collapse handle).'
+            {invisible: true, leftMinSize: 10, leftMaxSize: 150},
+            'Invisible splitter. Splitter should still be fully functional (excluding the collapse handle).<br>' +
+            'Left panel should be able to go from 10 to 150 pixels in size and no bigger.'
     );
 
     addTest(
             {
+                leftMaxSize: 300,
+                rightMaxSize: 300,
                 onDragStart: function (e, splitter) {
                     bar = splitter.find('.splitter_bar');
                     bar.css('background', 'repeating-linear-gradient(60deg, silver, silver 5px, grey 5px, grey 10px)');
@@ -150,7 +153,8 @@
                 }
             },
             'Demonstration of onDragStart and onDragEnd events.<br>' +
-            'Splitter should gain a striped background when being dragged.'
+            'Splitter should gain a striped background when being dragged.<br>'+
+            'Tests an alternate form of size restriction by setting maximum sizes for each panel rather than minimums.'
     );
 
     addTest(

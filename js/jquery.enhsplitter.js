@@ -1,7 +1,7 @@
 /*!
  * jQuery Enhanced Splitter Plugin
  * Main ECMAScript File
- * Version 1.2.1
+ * Version 1.2.2
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
@@ -211,6 +211,11 @@
                     newPos = settings.leftMinSize;
                 } else if (newPos >= self.containerSize - settings.rightMinSize - self.splitterSize) {
                     newPos = self.containerSize - settings.rightMinSize - self.splitterSize;
+                }
+                if (settings.leftMaxSize !== null && newPos >= settings.leftMaxSize) {
+                    newPos = settings.leftMaxSize;
+                } else if (settings.rightMaxSize !== null && newPos <= self.containerSize - settings.rightMaxSize - self.splitterSize) {
+                    newPos = self.containerSize - settings.rightMaxSize - self.splitterSize;
                 }
                 self.currentPosition = newPos;
 
