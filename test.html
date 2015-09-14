@@ -159,6 +159,7 @@
 
     addTest(
             {
+                handle: 'dots',
                 onDragStart: function (e, splitter) {
                     handle = splitter.find('.splitter_handle');
                 },
@@ -171,7 +172,7 @@
                 }
             },
             'Demonstration of onDrag event by setting up a crappy handle size animation.<br>' +
-            'Handle should pulsate in size as mouse moves left/right.<br>' +
+            'Handle should be dotted ("dots" style) and pulsate in size as mouse moves left/right.<br>' +
             'This entire page also demonstrates the onDrag event; an onDrag function is used to show the panel pixel' +
             'sizes when dragging splitters around.'
     );

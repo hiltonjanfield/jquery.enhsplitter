@@ -163,6 +163,27 @@
         width: @splitter_size - 2;
       }
     }
+
+    &.splitter-handle-dots {
+      > .splitter_handle {
+        background-color: @splitter_color;
+        background-image: radial-gradient(circle 3px at 50% 10%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 50% 30%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 50% 50%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 50% 70%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 50% 90%, @splitter_shadow 1.5px, transparent 2px);
+
+        &:hover,
+        &:active {
+          background-image: radial-gradient(circle 3px at 50% 10%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 50% 30%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 50% 50%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 50% 70%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 50% 90%, @handle_active 1.5px, transparent 2px);
+        }
+      }
+    }
+
   }
 }
 
@@ -211,6 +232,28 @@
         margin-top: 1px;
       }
     }
+
+    &.splitter-handle-dots {
+      > .splitter_handle {
+        height: 100%;
+        background-color: @splitter_color;
+        background-image: radial-gradient(circle 3px at 10% 50%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 30% 50%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 50% 50%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 70% 50%, @splitter_shadow 1.5px, transparent 2px),
+        radial-gradient(circle 3px at 90% 50%, @splitter_shadow 1.5px, transparent 2px);
+
+        &:hover,
+        &:active {
+          background-image: radial-gradient(circle 3px at 10% 50%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 30% 50%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 50% 50%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 70% 50%, @handle_active 1.5px, transparent 2px),
+          radial-gradient(circle 3px at 90% 50%, @handle_active 1.5px, transparent 2px);
+        }
+      }
+    }
+
   }
 }
 
@@ -227,6 +270,22 @@
     &.splitter-handle-block > .splitter_handle {
       background-color: @handle_active;
     }
+  }
+
+  &.splitter-vertical > .splitter_bar.splitter-handle-dots > .splitter_handle {
+    background-image: radial-gradient(circle 3px at 50% 10%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 50% 30%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 50% 50%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 50% 70%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 50% 90%, @handle_active 1.5px, transparent 2px);
+  }
+
+  &.splitter-horizontal > .splitter_bar.splitter-handle-dots > .splitter_handle {
+    background-image: radial-gradient(circle 3px at 10% 50%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 30% 50%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 50% 50%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 70% 50%, @handle_active 1.5px, transparent 2px),
+    radial-gradient(circle 3px at 90% 50%, @handle_active 1.5px, transparent 2px),
   }
 }
 
