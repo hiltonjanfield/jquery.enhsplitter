@@ -1,5 +1,9 @@
 # jQuery Enhanced Splitter Change Log
 
+## Release v1.2.2
+
+- Fix min/max size options.
+
 ## Release v1.2.1
 
 - Considerable internal refactoring.
