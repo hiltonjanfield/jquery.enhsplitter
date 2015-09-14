@@ -390,16 +390,19 @@
 
         <dt>handle</dt>
         <dd>
-            <code>['default'|'bar'|'block'|'none'|&lt;user-defined&gt;]</code>
+            <code>['default'|'stripes'|'bar'|'block'|'dots'|'lotsofdots'|'none'|&lt;user-defined&gt;]</code>
             <code class="default">Default: 'default'</code>
 
             <p>
                 Defines how the the collapse is drawn.
             </p>
             <ul>
-                <li><code>'default'</code> draws a striped handle, as shown in the first two examples above.</li>
+                <li><code>'default'</code> is currently equivalent to 'stripes' but may change in the future.</li>
+                <li><code>'stripes'</code> draws a striped handle, as shown in the first two examples above.</li>
                 <li><code>'bar'</code> draws a narrow grey bar, as shown in the third example above.</li>
                 <li><code>'block'</code> draws a wide grey block that fills the width of the splitter.</li>
+                <li><code>'dots'</code> draws five small equidistant dots with no border.</li>
+                <li><code>'lotsofdots'</code> draws a series of small dots.</li>
                 <li><code>'none'</code> hides the handle completely, disabling it. This effect is also achieved
                     when setting <code>{invisible: true}</code>; it is not necessary to set both.
                 </li>

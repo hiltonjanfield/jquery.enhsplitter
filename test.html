@@ -128,10 +128,11 @@
     );
 
     addTest(
-            {rightMinSize: -10, position: '120%', splitterSize: 13, handle: 'block'},
-            'Attempt to break limit and position settings.<br>' +
+            {rightMinSize: -10, position: '120%', splitterSize: 13, handle: 'lotsofdots'},
+            'Touch screen example, plus attempt to break limit and position settings (out of range).<br>' +
             'Splitter should start within the container (at the edge, having been restricted to 100%), and remain unable to go beyond the edges.<br>' +
-            'Splitter bar itself should be twice as wide (13 pixels vs. default 7) but still remain fully within the panel.'
+            'Splitter bar itself should be twice as wide (13 pixels vs. default 7) but still remain fully within the panel.<br>' +
+            'Splitter handle should be "lotsofdots" style, twice as tall as normal with a line of dots. Despite its narrow appearance, this handle takes up the full width of the splitter and is easier to hit on touch screens.'
     );
 
     addTest(
@@ -159,6 +160,7 @@
 
     addTest(
             {
+                handle: 'dots',
                 onDragStart: function (e, splitter) {
                     handle = splitter.find('.splitter_handle');
                 },
@@ -171,7 +173,7 @@
                 }
             },
             'Demonstration of onDrag event by setting up a crappy handle size animation.<br>' +
-            'Handle should pulsate in size as mouse moves left/right.<br>' +
+            'Handle should be dotted ("dots" style) and pulsate in size as mouse moves left/right.<br>' +
             'This entire page also demonstrates the onDrag event; an onDrag function is used to show the panel pixel' +
             'sizes when dragging splitters around.'
     );
