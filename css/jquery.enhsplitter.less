@@ -106,9 +106,9 @@
   }
 
   &.splitter-invisible {
-    background: none!important;
-    border: none!important;
-    box-shadow: none!important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   &.splitter-invisible,
@@ -134,7 +134,8 @@
       height: @handle_size;
     }
 
-    &.splitter-handle-default {
+    &.splitter-handle-default,
+    &.splitter-handle-stripes {
       > .splitter_handle {
         width: 3px;
         border-left: 1px solid @handle_color;
@@ -178,7 +179,8 @@
       width: @handle_size;
     }
 
-    &.splitter-handle-default {
+    &.splitter-handle-default,
+    &.splitter-handle-stripes {
       > .splitter_handle {
         height: 3px;
         margin-top: 1px;
@@ -212,17 +214,19 @@
   }
 }
 
-.splitter_container.splitter-active > .splitter_bar {
-  z-index: 1000; /* Important to keep z-index of active splitter above .splitterMask. */
+.splitter_container.splitter-active {
+  > .splitter_bar {
+    z-index: 1000; /* Important to keep z-index of active splitter above .splitterMask. */
 
-  > .splitter_handle {
-    border-color: @handle_active;
-    cursor: inherit;
-  }
+    > .splitter_handle {
+      border-color: @handle_active;
+      cursor: inherit;
+    }
 
-  &.splitter-handle-bar > .splitter_handle,
-  &.splitter-handle-block > .splitter_handle {
-    background-color: @handle_active;
+    &.splitter-handle-bar > .splitter_handle,
+    &.splitter-handle-block > .splitter_handle {
+      background-color: @handle_active;
+    }
   }
 }
 
