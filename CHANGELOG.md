@@ -1,5 +1,12 @@
 # jQuery Enhanced Splitter Change Log
 
+## Release v1.2.3
+
+- Bug fix for zero panel height issue.
+- Add 'dots' handle style.
+- Add 'lotsofdots' handle style.
+- Update documentation and test files.
+
 ## Release v1.2.2
 
 - Fix min/max size options.
