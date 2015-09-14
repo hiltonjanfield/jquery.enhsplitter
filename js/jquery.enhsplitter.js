@@ -130,7 +130,8 @@
         }
 
         // Check for an empty container height (happens when height on the parent has not been set), and fix.
-        if (!settings.height && this.height() == 0) {
+        // Some weirdness has sometimes resulted in panel heights of 0.33333px, hence the < 1 check rather than == 0.
+        if (!settings.height && this.height() < 1) {
             settings.height = '10em';
         }
 
@@ -139,8 +140,6 @@
         }
 
         var containerSize = settings.vertical ? this.width() : this.height();
-
-        console.log(settings);
 
         if (typeof settings.minSize !== 'undefined') { settings.leftMinSize = settings.rightMinSize = settings.minSize; }
         if (typeof settings.maxSize !== 'undefined') { settings.leftMaxSize = settings.rightMaxSize = settings.maxSize; }
