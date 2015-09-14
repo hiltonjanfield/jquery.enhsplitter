@@ -5,6 +5,11 @@
  *
  * https://github.com/hiltonjanfield/jquery.enhsplitter
  *
+ * All classes to begin with 'splitter'.
+ * Standard container/object classes use _ separator (.splitter_container, .splitter_panel, etc.)
+ * Modifier/option classes use - separator (.splitter-vertical, .splitter-handle-dots, etc.)
+ *
+ * Do not make changes to the CSS file; edit the LESS file and compile.
  */
 
 @splitter_color: silver;
@@ -166,7 +171,8 @@
 
     &.splitter-handle-dots {
       > .splitter_handle {
-        background-color: @splitter_color;
+        margin-left: -1px;
+        background-color: transparent;
         background-image: radial-gradient(circle 3px at 50% 10%, @splitter_shadow 1.5px, transparent 2px),
         radial-gradient(circle 3px at 50% 30%, @splitter_shadow 1.5px, transparent 2px),
         radial-gradient(circle 3px at 50% 50%, @splitter_shadow 1.5px, transparent 2px),
@@ -184,6 +190,38 @@
       }
     }
 
+    &.splitter-handle-lotsofdots {
+      > .splitter_handle {
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -1px;
+        background-color: transparent;
+        background-image: radial-gradient(circle 1px at 50% 5%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 10%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 15%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 20%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 25%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 30%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 35%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 40%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 45%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 55%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 60%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 65%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 70%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 75%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 80%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 85%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 90%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 95%, @splitter_shadow 1.5px, transparent 1.5px);
+
+        &:hover,
+        &:active {
+          background-color: #f0f0f0;
+        }
+      }
+    }
   }
 }
 
@@ -236,7 +274,8 @@
     &.splitter-handle-dots {
       > .splitter_handle {
         height: 100%;
-        background-color: @splitter_color;
+        margin-top: -1px;
+        background-color: transparent;
         background-image: radial-gradient(circle 3px at 10% 50%, @splitter_shadow 1.5px, transparent 2px),
         radial-gradient(circle 3px at 30% 50%, @splitter_shadow 1.5px, transparent 2px),
         radial-gradient(circle 3px at 50% 50%, @splitter_shadow 1.5px, transparent 2px),
@@ -254,6 +293,37 @@
       }
     }
 
+    &.splitter-handle-lotsofdots {
+      > .splitter_handle {
+        height: 100%;
+        width: 100px;
+        background-color: transparent;
+        background-image: radial-gradient(circle 1px at 5% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 10% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 15% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 20% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 25% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 30% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 35% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 40% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 45% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 50% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 55% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 60% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 65% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 70% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 75% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 80% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 85% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 90% 50%, @splitter_shadow 1.5px, transparent 1.5px),
+        radial-gradient(circle 1px at 95% 50%, @splitter_shadow 1.5px, transparent 1.5px);
+
+        &:hover,
+        &:active {
+          background-color: #f0f0f0;
+        }
+      }
+    }
   }
 }
 
@@ -286,6 +356,10 @@
     radial-gradient(circle 3px at 50% 50%, @handle_active 1.5px, transparent 2px),
     radial-gradient(circle 3px at 70% 50%, @handle_active 1.5px, transparent 2px),
     radial-gradient(circle 3px at 90% 50%, @handle_active 1.5px, transparent 2px),
+  }
+
+  &.splitter-vertical > .splitter_bar.splitter-handle-lotsofdots > .splitter_handle {
+    background-color: #f0f0f0;
   }
 }
 
