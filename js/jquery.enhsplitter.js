@@ -322,11 +322,14 @@
 
                 .on('mousedown.splitter', '.splitter_handle', function (e) {
                     e.preventDefault();
-                    if (currentSplitter == null) {
+                    if (currentSplitter === null) {
                         $(this).closest('.splitter_bar').trigger('mousedown');
                     }
 
-                    dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                    // Two separate comparisons on purpose. .trigger() may or may not set currentSplitter.
+                    if (currentSplitter !== null) {
+                        dragStartPosition = (currentSplitter.settings.vertical) ? e.pageX : e.pageY;
+                    }
                 })
 
                 .on('mousedown.splitter touchstart.splitter', '.splitter_container > .splitter_bar', function (e) {
