@@ -182,11 +182,11 @@
         <h4>#demoThreeB</h4>
 
         <p>
-            This splitter was created using with the options <code>{handle: 'bar', position: 150, leftMinSize: 30, fixed: true}</code>. <code>position</code> defines a starting size,
-            <code>{limit, lowerLimit, and upperLimit}</code> define how small the panels may get, and
+            This splitter was created using with the options <code>{handle: 'bar', position: 150, leftMinSize: 0, fixed: true}</code>. <code>position</code> defines a starting size,
+            <code>leftMinSize</code> defines how small the panel gets when collapsed, and
             <code>handle</code> sets up a different effect for the collapse handle. The <code>{fixed: true}</code>
             option disables the ability to drag the splitter around, while leaving the collapse options intact - the
-            result being an unmovable bar with a button that collapses it back and forth.
+            combined result being an unmovable bar with a button that collapses it back and forth.
         </p>
 
         <p style="color: #888888;">
@@ -239,7 +239,7 @@
 
 <span style="color: #770000">&lt;script&gt;</span>
     jQuery(<span style="color: #008800; font-weight: bold">function</span> ($) {
-        $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).enhsplitter({limit<span
+        $(<span style="background-color: #fff0f0">&#39;#demoOne&#39;</span>).enhsplitter({minSize<span
                 style="color: #333333">:</span> <span
                 style="color: #0000DD; font-weight: bold">50</span>, vertical<span
                 style="color: #333333">:</span> <span style="background-color: #fff0f0">false</span>});
@@ -248,10 +248,9 @@
                 style="color: #333333">:</span> <span
                 style="background-color: #fff0f0">&#39;bar&#39;</span>, position<span
                 style="color: #333333">:</span> <span
-                style="background-color: #fff0f0">150</span>, lowerLimit<span
+                style="background-color: #fff0f0">150</span>, leftMinSize<span
                 style="color: #333333">:</span> <span
-                style="color: #0000DD; font-weight: bold">0</span>, upperLimit<span
-                style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">150</span>, fixed<span
+                style="color: #0000DD; font-weight: bold">0</span>, fixed<span
                 style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">true</span>});
     });
 <span style="color: #770000">&lt;/script&gt;</span>
@@ -309,7 +308,7 @@
         $(<span style="background-color: #fff0f0">&#39;#panels&#39;</span>).enhsplitter({handle<span
                         style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;striped&#39;</span>, position<span
                         style="color: #333333">:</span> <span
-                        style="background-color: #fff0f0">&#39;150px&#39;</span>, limit<span
+                        style="background-color: #fff0f0">&#39;150px&#39;</span>, minSize<span
                         style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
 <span style="color: #770000">&lt;/script&gt;</span>
 </pre>
@@ -437,7 +436,7 @@
 
             <p>
                 This option is useful for creating fixed width navigation, tool, or other bars. When the options
-                <code>{position: 150, lowerLimit: 0, fixed: true}</code> are used together, it creates a splitter
+                <code>{position: 150, minSize: 0, fixed: true}</code> are used together, it creates a splitter
                 with a narrow panel (in this case 150px) that cannot be resized, but is completely hidden when the
                 collapse handle is clicked (and vice versa).
             </p>
